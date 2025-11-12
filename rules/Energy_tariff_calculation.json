@@ -1,0 +1,297 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "id": "d280f8ef-6898-4ade-a679-160f6a792e6e",
+      "name": "request",
+      "type": "inputNode",
+      "content": {
+        "schema": ""
+      },
+      "position": {
+        "x": 100,
+        "y": 50
+      }
+    },
+    {
+      "id": "b5f57119-6ef5-46f4-862c-acb5a16ed3f7",
+      "name": "Calculate fix charges",
+      "type": "decisionTableNode",
+      "content": {
+        "rules": [
+          {
+            "_id": "a5bc25b8-d158-4cd8-97d4-435affc2241e",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "20",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "<=2",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "59fc6738-a92b-4f64-9b24-928f484d0deb",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "50",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">2 and <=5",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "df716d84-0496-41e4-98a0-f32192fb5ee5",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "100",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">5 and <=15",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "b545dc6f-3bc4-49c5-9ffe-4fd95fafb257",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "200",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">15 and <=25",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "c84a2172-2781-473b-9193-3258f5961c6c",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">25",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "66767e42-e943-45bf-ae73-0397aa03b45b",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "150",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'Single Point Delivery Supply for GHS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "17a2952b-c65d-4344-a4dd-641157aaacbb",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'NON-DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "<=3",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "ad6faa93-dd30-4613-b37d-03ea23c4fe5f",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'NON-DOMESTIC'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "<3",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "1d6e4c6d-eb1e-4053-9a65-be61b7de9bd8",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'INDUSTRIAL'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "610ad4c6-948d-43ee-a242-44ed003c410f",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "125",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'AGRICULTURE'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "0c966129-49e1-41f8-8bc0-815c6f4793fb",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "200",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'MUSHROOM CULTIVATION'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "37869203-e712-49e8-b417-fa52330ddd94",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'PUBLIC UTILITIES'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "5ed10fc3-1f8a-455c-9dcc-1b4267f05e20",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'DELHI INTERNATIONAL AIRPORT LTD. (DIAL)'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "674a3c1f-fd66-4c82-8f92-7902d899ef0a",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'ADVERTISEMENT & HOARDINGS'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "b982f6ec-059d-4f1e-bdcc-f43faab3cd4d",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "20",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "<=2",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "3fa783ea-3a42-4c73-898a-57bdc73def0b",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "50",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">2 and <=5",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "83d7d548-88e5-4c6e-813f-c6bd320c7898",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "100",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">5 and <=15",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "99445d23-2bc0-4e7a-bccd-a93786b77c97",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "200",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">15 and <=25",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "ec0a7c28-8a06-40ea-bf6b-4442c518cc9d",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "250",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'INDIVIDUAL CONNECTIONS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": ">25",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "630bff4f-c63a-479c-8a67-6e232ba428e7",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "150",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'Single Point Delivery Supply for GHS'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "d9e50507-0c13-44fa-8bd2-eeb668ad5113",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "0",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'Threshers'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'TEMPORARY SUPPLY'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "270"
+          },
+          {
+            "_id": "4a947ece-c5fd-4f41-86fb-61e569cd8a5f",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "0",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'Supply at LT'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'CHARGING STATIONS'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          },
+          {
+            "_id": "099614d7-d7cd-489e-a9dd-5b214522c3f4",
+            "_description": "",
+            "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc": "0",
+            "2dc24100-d133-48f6-ae3f-3cee5ac9e839": "'Supply at HT'",
+            "437c400a-9214-4928-9658-bf72aa5ad1f8": "'CHARGING STATIONS'",
+            "7bee8d92-53ed-4baf-9db9-08a5f7df140c": "",
+            "8ab2fb0c-a582-4499-b16e-30abc00539cc": "0"
+          }
+        ],
+        "inputs": [
+          {
+            "id": "437c400a-9214-4928-9658-bf72aa5ad1f8",
+            "name": "Category",
+            "field": "category"
+          },
+          {
+            "id": "2dc24100-d133-48f6-ae3f-3cee5ac9e839",
+            "name": "Sub category",
+            "field": "subCategory"
+          },
+          {
+            "id": "7bee8d92-53ed-4baf-9db9-08a5f7df140c",
+            "name": "Load in KW",
+            "field": "loadKW"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "0ede9ae3-24f6-4a08-8a79-3ce61824e9fc",
+            "name": "Fixed charges Rs. /KW/month",
+            "field": "fixedChargePerKWPerMonth"
+          },
+          {
+            "id": "8ab2fb0c-a582-4499-b16e-30abc00539cc",
+            "name": "Fixed charges MCD tax Rs. /connection/month",
+            "field": "fixedMCDTaxPerConnectionPerMonth"
+          }
+        ],
+        "hitPolicy": "first",
+        "inputField": null,
+        "outputPath": null,
+        "passThrough": true,
+        "executionMode": "single"
+      },
+      "position": {
+        "x": 365,
+        "y": 170
+      }
+    },
+    {
+      "id": "3fbb420e-707d-4145-b929-0183158e33de",
+      "name": "response",
+      "type": "outputNode",
+      "content": {
+        "schema": ""
+      },
+      "position": {
+        "x": 685,
+        "y": 210
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1e3d72bb-695f-48ab-93e0-8f8da29cbe2d",
+      "type": "edge",
+      "sourceId": "d280f8ef-6898-4ade-a679-160f6a792e6e",
+      "targetId": "b5f57119-6ef5-46f4-862c-acb5a16ed3f7"
+    },
+    {
+      "id": "ea4c7103-973a-4ba9-a798-61a2fd75e115",
+      "type": "edge",
+      "sourceId": "b5f57119-6ef5-46f4-862c-acb5a16ed3f7",
+      "targetId": "3fbb420e-707d-4145-b929-0183158e33de"
+    }
+  ]
+}
