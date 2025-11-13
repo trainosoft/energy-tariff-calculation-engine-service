@@ -1,13 +1,26 @@
+from typing import Any, Dict, List
 from unicodedata import category
 from pydantic import BaseModel
 
-class TerifCalculationRequest(BaseModel):
+class TariffCalculationRequest(BaseModel):
+    customer_Id: int
     category: str
     subCategory: str
     loadKW: float
     units: float
+    exceededDemand: float
 
-class TerifCalculationResponse(BaseModel):
-    category: str
-    subcategory: str
-    load: float
+class BatchTariffCalculationRequest(BaseModel):
+    requests: List[TariffCalculationRequest]
+
+class TariffEvaluationSuccess(BaseModel):
+    result: Any
+
+class TariffEvaluationFailure(BaseModel):
+    context: Dict[str, Any]
+    error: str
+
+class BatchTariffResponse(BaseModel):
+    summary: Dict[str, int]
+    success: List[TariffEvaluationSuccess]
+    failed: List[TariffEvaluationFailure]
