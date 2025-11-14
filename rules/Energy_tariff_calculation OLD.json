@@ -9,8 +9,8 @@
         "schema": ""
       },
       "position": {
-        "x": -820,
-        "y": 0
+        "x": -225,
+        "y": 150
       }
     },
     {
@@ -263,8 +263,8 @@
         "executionMode": "single"
       },
       "position": {
-        "x": -265,
-        "y": 0
+        "x": 80,
+        "y": 150
       }
     },
     {
@@ -275,8 +275,8 @@
         "schema": ""
       },
       "position": {
-        "x": 1080,
-        "y": 140
+        "x": 1360,
+        "y": 215
       }
     },
     {
@@ -557,8 +557,8 @@
         "executionMode": "single"
       },
       "position": {
-        "x": 25,
-        "y": 0
+        "x": 405,
+        "y": 150
       }
     },
     {
@@ -580,17 +580,22 @@
             "value": "units * energyChargesPerKWH"
           },
           {
+            "id": "17cbb10e-d2b0-446e-81cc-2e13298e7cee",
+            "key": "surcharge",
+            "value": "fixedChargePerKWPerMonth * exceededDemand * 0.3"
+          },
+          {
             "id": "245f7b24-574f-4bfb-9fbc-a88ff4c66627",
             "key": "totalBill",
-            "value": "$.totalLoadFixedCharges + $.totalUnitsCharges"
+            "value": "$.totalLoadFixedCharges + $.totalUnitsCharges + $.surcharge"
           }
         ],
         "passThrough": true,
         "executionMode": "single"
       },
       "position": {
-        "x": 635,
-        "y": 245
+        "x": 1005,
+        "y": 250
       }
     },
     {
@@ -607,19 +612,14 @@
           },
           {
             "id": "29a3fa94-6f62-4798-a06e-61f64d9f4c2a",
-            "condition": "category != 'DOMESTIC' and category != 'TEMPORARY SUPPLY'",
-            "isDefault": false
-          },
-          {
-            "id": "404f4b61-ec08-46e3-8908-12454cfd6da7",
             "condition": "",
             "isDefault": true
           }
         ]
       },
       "position": {
-        "x": 340,
-        "y": 0
+        "x": 690,
+        "y": 110
       }
     },
     {
@@ -640,96 +640,18 @@
         "executionMode": "single"
       },
       "position": {
-        "x": 635,
-        "y": 35
-      }
-    },
-    {
-      "id": "2e66cae7-b9e7-458f-81dc-64c2936c27ce",
-      "name": "Set Variable tarrif",
-      "type": "expressionNode",
-      "content": {
-        "inputField": null,
-        "outputPath": null,
-        "expressions": [
-          {
-            "id": "3d2e5779-2b98-4acd-9d24-fa3f90cf40a9",
-            "key": "excess_load_surcharge_in_percentage",
-            "value": "30"
-          },
-          {
-            "id": "9a244949-96ff-4688-affa-e67766a69e8d",
-            "key": "peak_hr_surcharge_in_percentage",
-            "value": "20"
-          },
-          {
-            "id": "3616f57d-22a0-4293-af87-be813a9a8bdc",
-            "key": "off_peak_hr_surcharge_in_percentage",
-            "value": "20"
-          }
-        ],
-        "passThrough": true,
-        "executionMode": "single"
-      },
-      "position": {
-        "x": -540,
-        "y": 0
-      }
-    },
-    {
-      "id": "69ef9753-c82f-47df-81d3-685d13666a74",
-      "name": "Calculate Peack HR rate",
-      "type": "expressionNode",
-      "content": {
-        "inputField": null,
-        "outputPath": null,
-        "expressions": [
-          {
-            "id": "faff1038-4276-4f2d-8370-ea7f1dc2d145",
-            "key": "totalLoadFixedCharges",
-            "value": "loadKW * fixedChargePerKWPerMonth"
-          },
-          {
-            "id": "fdfc644a-704d-434d-bfeb-17bdae0609bf",
-            "key": "peak_hr_base_charge",
-            "value": "peakHRUnits * energyChargesPerKWH"
-          },
-          {
-            "id": "0f3e0269-cc5b-4e1e-8e20-85bcd56d73e6",
-            "key": "peak_hr_surcharge",
-            "value": "$.peak_hr_base_charge + $.peak_hr_base_charge * (peak_hr_surcharge_in_percentage / 100)"
-          },
-          {
-            "id": "e1f0ce54-29f9-47fa-b886-99d296e2bd0e",
-            "key": "off_peak_hr_base_charge",
-            "value": "offPeakHRUnits * energyChargesPerKWH"
-          },
-          {
-            "id": "348a7ddb-9efc-4cbd-850b-53a2c0134c52",
-            "key": "off_peak_hr_surcharge",
-            "value": "$.off_peak_hr_base_charge - $.off_peak_hr_base_charge * (off_peak_hr_surcharge_in_percentage / 100)"
-          },
-          {
-            "id": "bb4cd818-1d0d-4d74-8e77-00c1fde992a4",
-            "key": "surcharge",
-            "value": "fixedChargePerKWPerMonth * exceededDemand * (excess_load_surcharge_in_percentage / 100)"
-          },
-          {
-            "id": "84794eae-85f7-4e00-b6bd-39d024d5e6fa",
-            "key": "totalBill",
-            "value": "$.totalLoadFixedCharges + $.peak_hr_surcharge + $.off_peak_hr_surcharge + $.surcharge"
-          }
-        ],
-        "passThrough": true,
-        "executionMode": "single"
-      },
-      "position": {
-        "x": 630,
-        "y": 140
+        "x": 1000,
+        "y": 145
       }
     }
   ],
   "edges": [
+    {
+      "id": "1e3d72bb-695f-48ab-93e0-8f8da29cbe2d",
+      "type": "edge",
+      "sourceId": "d280f8ef-6898-4ade-a679-160f6a792e6e",
+      "targetId": "b5f57119-6ef5-46f4-862c-acb5a16ed3f7"
+    },
     {
       "id": "c6f1bacf-d2c3-475e-bf32-80f8d6613b29",
       "type": "edge",
@@ -756,42 +678,17 @@
       "targetId": "3fbb420e-707d-4145-b929-0183158e33de"
     },
     {
-      "id": "4347f76b-6b61-4060-ab48-771335057235",
+      "id": "bc160cec-b875-4d94-ba40-274e9011943c",
       "type": "edge",
       "sourceId": "ab51d84f-09e0-44ea-bcde-878c530bec14",
       "targetId": "4724a668-4548-4e86-86da-2ac6d2d84572"
     },
     {
-      "id": "8c0ec463-ec75-433c-9d9e-44dcc5989ebe",
+      "id": "04066088-a9af-43c7-ba05-4b2508aefa49",
       "type": "edge",
       "sourceId": "4724a668-4548-4e86-86da-2ac6d2d84572",
       "targetId": "2f2fb363-95b3-4245-aced-fcb635b9506a",
-      "sourceHandle": "404f4b61-ec08-46e3-8908-12454cfd6da7"
-    },
-    {
-      "id": "6ce2c9bb-f2fa-4cc7-b049-8fa787115bcb",
-      "type": "edge",
-      "sourceId": "4724a668-4548-4e86-86da-2ac6d2d84572",
-      "targetId": "69ef9753-c82f-47df-81d3-685d13666a74",
       "sourceHandle": "29a3fa94-6f62-4798-a06e-61f64d9f4c2a"
-    },
-    {
-      "id": "918d74a1-f0a3-48ed-8678-833f728361a2",
-      "type": "edge",
-      "sourceId": "69ef9753-c82f-47df-81d3-685d13666a74",
-      "targetId": "3fbb420e-707d-4145-b929-0183158e33de"
-    },
-    {
-      "id": "71c9542c-f7f0-46c7-87aa-db2a0350ca81",
-      "type": "edge",
-      "sourceId": "d280f8ef-6898-4ade-a679-160f6a792e6e",
-      "targetId": "2e66cae7-b9e7-458f-81dc-64c2936c27ce"
-    },
-    {
-      "id": "d0de849b-0792-4bde-943e-67c0b912420f",
-      "type": "edge",
-      "sourceId": "2e66cae7-b9e7-458f-81dc-64c2936c27ce",
-      "targetId": "b5f57119-6ef5-46f4-862c-acb5a16ed3f7"
     }
   ]
 }

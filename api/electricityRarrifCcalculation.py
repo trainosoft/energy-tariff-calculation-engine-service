@@ -1,3 +1,4 @@
+import asyncio
 import json
 from fastapi import APIRouter, HTTPException
 from config.logger import logger
@@ -75,3 +76,83 @@ async def evaluateTariffBatch(req: BatchTariffCalculationRequest):
     except Exception as e:
         logger.exception("Error during batch evaluation")
         raise HTTPException(status_code=500, detail=str(e))
+
+# ----------------------------
+# Chunk helper
+# ----------------------------
+
+def chunk_list(data, size):
+    for i in range(0, len(data), size):
+        yield data[i:i + size]
+
+
+# ----------------------------
+# Chunk processor (runs in parallel)
+# ----------------------------
+
+async def process_chunk(chunk, decision):
+    success = []
+    failure = []
+
+    for req_item in chunk:
+        ctx = req_item.dict()
+        try:
+            res = decision.evaluate(ctx)
+            success.append(TariffEvaluationSuccess(result=res))
+        except Exception as e:
+            failure.append(
+                TariffEvaluationFailure(context=ctx, error=str(e))
+            )
+
+    return success, failure
+
+
+# ----------------------------
+# FINAL PARALLEL BATCH API
+# ----------------------------
+
+@energyTariffCalculatorRouter.post("/evaluate/batch/parallel")
+async def evaluateTariffBatchparallel(req: BatchTariffCalculationRequest):
+
+    logger.info(f"Batch tariff evaluation invoked, count={len(req.requests)}")
+
+    # Load Zen rules
+    try:
+        with open("rules/energy_tariff_calculation.json") as f:
+            model = json.load(f)
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="Rules file missing")
+
+    # Initialize decision engine once
+    engine = ZenEngine()
+    decision = engine.create_decision(model)
+
+    # Create chunks (e.g., 500 each)
+    CHUNK_SIZE = 500  # adjust according to CPU/RAM
+    chunks = list(chunk_list(req.requests, CHUNK_SIZE))
+
+    logger.info(f"Total chunks: {len(chunks)}")
+
+    # Run chunks in parallel
+    tasks = [process_chunk(chunk, decision) for chunk in chunks]
+
+    results = await asyncio.gather(*tasks)
+
+    # Flatten results
+    success_results = []
+    failed_results = []
+
+    for s, f in results:
+        success_results.extend(s)
+        failed_results.extend(f)
+
+    return {
+        "summary": {
+            "total_requests": len(req.requests),
+            "chunks_processed": len(chunks),
+            "succeeded": len(success_results),
+            "failed": len(failed_results),
+        },
+        "success": success_results,
+        "failed": failed_results,
+    }

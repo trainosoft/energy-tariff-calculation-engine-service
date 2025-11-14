@@ -9,6 +9,8 @@ class TariffCalculationRequest(BaseModel):
     loadKW: float
     units: float
     exceededDemand: float
+    peakHRUnits: float
+    offPeakHRUnits: float
 
 class BatchTariffCalculationRequest(BaseModel):
     requests: List[TariffCalculationRequest]
