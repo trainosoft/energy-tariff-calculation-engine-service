@@ -26,3 +26,6 @@ class BatchTariffResponse(BaseModel):
     summary: Dict[str, int]
     success: List[TariffEvaluationSuccess]
     failed: List[TariffEvaluationFailure]
+
+class EvaluateResponse(BaseModel):
+    result: dict

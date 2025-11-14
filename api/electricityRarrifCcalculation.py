@@ -1,11 +1,13 @@
 import asyncio
+from concurrent.futures import ProcessPoolExecutor
 import json
 from fastapi import APIRouter, HTTPException
 from config.logger import logger
-from model.models import BatchTariffCalculationRequest, BatchTariffResponse, TariffCalculationRequest, TariffEvaluationFailure, TariffEvaluationSuccess
+from model.models import BatchTariffCalculationRequest, BatchTariffResponse, EvaluateResponse, TariffCalculationRequest, TariffEvaluationFailure, TariffEvaluationSuccess
 from zen import ZenEngine
 
 energyTariffCalculatorRouter = APIRouter()
+executor = ProcessPoolExecutor(max_workers=8)
 
 @energyTariffCalculatorRouter.post("/evaluate")
 async def evaluateTarrifCalcaulationRules(req: TariffCalculationRequest):
@@ -155,4 +157,52 @@ async def evaluateTariffBatchparallel(req: BatchTariffCalculationRequest):
         },
         "success": success_results,
         "failed": failed_results,
+    }
+
+def evaluate_single(decision_model, context):
+    engine = ZenEngine()
+    decision = engine.create_decision(decision_model)
+    return decision.evaluate(context)
+
+@energyTariffCalculatorRouter.post("/evaluate/batch/parallel/v2")
+async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest):
+
+    with open("rules/energy_tariff_calculation.json") as f:
+        model = json.load(f)
+
+    loop = asyncio.get_event_loop()
+
+    tasks = [
+        loop.run_in_executor(
+            executor,
+            evaluate_single,
+            model,
+            item.dict()
+        )
+        for item in req.requests
+    ]
+
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    success = []
+    failed = []
+
+    for ctx, r in zip(req.requests, results):
+        if isinstance(r, Exception):
+            failed.append(
+                TariffEvaluationFailure(context=ctx.dict(), error=str(r))
+            )
+        else:
+            success.append(
+                TariffEvaluationSuccess(result=r)
+            )
+
+    return {
+        "summary": {
+            "total_requests": len(req.requests),
+            "succeeded": len(success),
+            "failed": len(failed),
+        },
+        "success": success,
+        "failed": failed,
     }
