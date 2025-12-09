@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.electricityRarrifCcalculation import energyTariffCalculatorRouter
 from config.config import ALLOWED_ORIGINS
 from config.logger import logger
+from opta.pollStatusAPI import pollStatusRouter
+from opta.schooltimetabling.schoolTtimetableRosteringApi import schoolTimetableRosteringRouter
 
 
 @asynccontextmanager
@@ -31,3 +33,6 @@ app.add_middleware(
 
 app.include_router(energyTariffCalculatorRouter, prefix="/calculate-tarrif", tags=["Calculate electricity tarrif"])
 app.include_router(energyTariffCalculatorRouter, prefix="/calculate-tarrif/batch", tags=["Calculate electricity tarrif batch"])
+app.include_router(schoolTimetableRosteringRouter, prefix="/optapy", tags=["Solve school time table rostering"])
+app.include_router(pollStatusRouter, prefix="/pullstatus", tags=["Fetch Poll Status"])
+

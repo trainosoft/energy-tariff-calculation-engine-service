@@ -4,3 +4,5 @@ gunicorn
 python-dotenv
 pydantic
 zen-engine
+optapy==9.37.0b0
+requests
