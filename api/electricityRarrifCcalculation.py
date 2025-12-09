@@ -10,11 +10,11 @@ energyTariffCalculatorRouter = APIRouter()
 executor = ProcessPoolExecutor(max_workers=8)
 
 @energyTariffCalculatorRouter.post("/evaluate")
-async def evaluateTarrifCalcaulationRules(req: TariffCalculationRequest):
+async def evaluateTarrifCalcaulationRules(req: TariffCalculationRequest, decision_table_key: str | None = None):
     logger.info("evaluateTarrifCalcaulationRules invoked, req: %s", req.json())
 
     try:
-        with open("rules/energy_tariff_calculation.json") as f:
+        with open("rules/"+decision_table_key) as f:
             model = json.load(f)
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="Rules file not found")
@@ -165,10 +165,12 @@ def evaluate_single(decision_model, context):
     return decision.evaluate(context)
 
 @energyTariffCalculatorRouter.post("/evaluate/batch/parallel/v2")
-async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest):
-
-    with open("rules/energy_tariff_calculation.json") as f:
-        model = json.load(f)
+async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest, decision_table_key: str | None = None):
+    try:
+        with open("rules/"+decision_table_key) as f:
+            model = json.load(f)
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="Rules file not found")
 
     loop = asyncio.get_event_loop()
 

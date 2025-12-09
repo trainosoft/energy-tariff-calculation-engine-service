@@ -3,18 +3,27 @@ from unicodedata import category
 from pydantic import BaseModel
 
 class TariffCalculationRequest(BaseModel):
-    customer_Id: int
+    # customer_Id: int
+    # category: str
+    # subCategory: str
+    # loadKW: float
+    # units: float
+    # exceededDemand: float
+    # peakHRUnits: float
+    # offPeakHRUnits: float
+
     category: str
-    subCategory: str
-    loadKW: float
-    units: float
-    exceededDemand: float
-    peakHRUnits: float
-    offPeakHRUnits: float
+    subcategory: str
+    units_consumed: float
+    contracted_load: float
+    connected_load: float
+    days: int
+    meter_rent: float
+    adjustment: float 
 
 class BatchTariffCalculationRequest(BaseModel):
     requests: List[TariffCalculationRequest]
-
+    
 class TariffEvaluationSuccess(BaseModel):
     result: Any
 
