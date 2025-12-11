@@ -144,15 +144,21 @@ def json_to_timetable(solution_json: Dict[str, Any]) -> TimeTable:
     for ts in solution_json.get("timeslot_list", []):
         start_time = datetime.time.fromisoformat(ts["start_time"])
         end_time = datetime.time.fromisoformat(ts["end_time"])
+        print(f"start_time : {start_time}")
+        print(f"end_time : {end_time}")
+
         ts_obj = Timeslot(ts["id"], ts["day_of_week"], start_time, end_time)
         timeslot_objs.append(ts_obj)
+        print(f"ts_obj : {ts_obj}")
         timeslot_by_id[ts_obj.id] = ts_obj
 
     # Rebuild rooms
     room_objs = []
     room_by_id: Dict[int, Room] = {}
     for r in solution_json.get("room_list", []):
+        print(f"rooms {r}")
         r_obj = Room(r["id"], r["name"])
+        print(f"r_obj : {r_obj}")
         room_objs.append(r_obj)
         room_by_id[r_obj.id] = r_obj
 
@@ -167,12 +173,17 @@ def json_to_timetable(solution_json: Dict[str, Any]) -> TimeTable:
             timeslot=None,
             room=None,
         )
-        ts_id = l.get("timeslot_id")
+        #ts_id = l.get("timeslot_id")
+        ts_id = l.get("timeslot").get("id")
+        print(f"ts_id ===========: {ts_id}")
         if ts_id is not None:
             lesson.timeslot = timeslot_by_id[ts_id]
-        room_id = l.get("room_id")
+        room_id = l.get("room").get("id")
+        print(f"room id =========: {room_id}")
         if room_id is not None:
             lesson.room = room_by_id[room_id]
+        
+        print(f"lesson : {lesson}")
         lesson_objs.append(lesson)
 
     # Score is optional; we don't need it for printing, so pass None
@@ -191,16 +202,13 @@ def start_async_solve(timetable: TimeTable, seconds_limit: int = 30) -> str:
       body: { "solution": {...}, "options": {"secondsSpentLimit": <int>} }
       resp: { "problemId": "<uuid>", "status": "PENDING" | "SOLVING" | ... }
     """
-    url = f"{REMOTE_SOLVER_BASE_URL}/optapy/solve"
-    payload = {
-        "solution": timetable_to_json(timetable),
-        "options": {"secondsSpentLimit": seconds_limit},
-    }
+    url = f"{REMOTE_SOLVER_BASE_URL}/optapy/solve/async"
+    payload = timetable_to_json(timetable)
     resp = requests.post(url, json=payload)
     resp.raise_for_status()
     data = resp.json()
     print("response data from start_async_solve: %s", data)
-    problemId = data["_optapy_solver_run_id"][2]
+    problemId = data["problem_id"]
     print(f"problem id : {problemId}")
     return problemId
 
@@ -210,14 +218,14 @@ def poll_status(problem_id: str, poll_interval_seconds: int = 2) -> str:
     Poll GET /solve/{problemId}/status until FINISHED / ERROR / NOT_FOUND.
     """
     print("poll_status invoked")
-    status_url = f"{REMOTE_SOLVER_BASE_URL}/pullstatus/solve/{problem_id}/status"
+    status_url = f"{REMOTE_SOLVER_BASE_URL}/optapy/solve/status/{problem_id}"
 
     while True:
         resp = requests.get(status_url)
         resp.raise_for_status()
         status = resp.json().get("status")
         print(f"[{problem_id}] status = {status}")
-        if status in ("FINISHED", "ERROR", "NOT_FOUND"):
+        if status in ("NOT_SOLVING", "FINISHED", "ERROR", "NOT_FOUND"):
             return status
         pytime.sleep(poll_interval_seconds)
 
@@ -229,12 +237,18 @@ def fetch_solution(problem_id: str) -> TimeTable:
       GET {BASE}/solve/{id}/solution -> { "solution": { ... } }
       202 Accepted if not ready.
     """
-    url = f"{REMOTE_SOLVER_BASE_URL}/solve/{problem_id}/solution"
+    url = f"{REMOTE_SOLVER_BASE_URL}/optapy/solution/{problem_id}"
     resp = requests.get(url)
-    if resp.status_code == 202:
+
+    print(f"resp.status_code : {resp.status_code}")
+    if resp.status_code != 200:
         raise RuntimeError("Solution not ready yet (HTTP 202). Call this only after FINISHED.")
     resp.raise_for_status()
+
+    print(f"resp : {resp}")
     data = resp.json()
+    solution = data["solution"]
+    print(f"solution : {solution}")
     return json_to_timetable(data["solution"])
 
 
@@ -253,7 +267,7 @@ def main():
 
     # 3) Poll until the remote solver finishes
     final_status = poll_status(problem_id)
-    if final_status != "FINISHED":
+    if final_status != "NOT_SOLVING":
         print(f"Solving did not finish successfully. Final status = {final_status}")
         return
 
