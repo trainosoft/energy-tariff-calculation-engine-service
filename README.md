@@ -543,5 +543,1733 @@ Response:
     }
 }
 
+Opta REST APIs
+----------------------------------------------------------------
+curl --location 'http://127.0.0.1:8000/optapy/solve' \
+--header 'Content-Type: application/json' \
+--data '{
+    "timeslot_list": [
+        {
+            "id": 1,
+            "day_of_week": "MONDAY",
+            "start_time": "08:30:00",
+            "end_time": "09:30:00"
+        },
+        {
+            "id": 2,
+            "day_of_week": "MONDAY",
+            "start_time": "09:30:00",
+            "end_time": "10:30:00"
+        },
+        {
+            "id": 3,
+            "day_of_week": "MONDAY",
+            "start_time": "10:30:00",
+            "end_time": "11:30:00"
+        },
+        {
+            "id": 4,
+            "day_of_week": "MONDAY",
+            "start_time": "13:30:00",
+            "end_time": "14:30:00"
+        },
+        {
+            "id": 5,
+            "day_of_week": "MONDAY",
+            "start_time": "14:30:00",
+            "end_time": "15:30:00"
+        },
+        {
+            "id": 6,
+            "day_of_week": "TUESDAY",
+            "start_time": "08:30:00",
+            "end_time": "09:30:00"
+        },
+        {
+            "id": 7,
+            "day_of_week": "TUESDAY",
+            "start_time": "09:30:00",
+            "end_time": "10:30:00"
+        },
+        {
+            "id": 8,
+            "day_of_week": "TUESDAY",
+            "start_time": "10:30:00",
+            "end_time": "11:30:00"
+        },
+        {
+            "id": 9,
+            "day_of_week": "TUESDAY",
+            "start_time": "13:30:00",
+            "end_time": "14:30:00"
+        },
+        {
+            "id": 10,
+            "day_of_week": "TUESDAY",
+            "start_time": "14:30:00",
+            "end_time": "15:30:00"
+        }
+    ],
+    "room_list": [
+        {
+            "id": 1,
+            "name": "Room A"
+        },
+        {
+            "id": 2,
+            "name": "Room B"
+        },
+        {
+            "id": 3,
+            "name": "Room C"
+        }
+    ],
+    "lesson_list": [
+        {
+            "id": 1,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 2,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 3,
+            "subject": "Physics",
+            "teacher": "M. Curie",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 4,
+            "subject": "Chemistry",
+            "teacher": "M. Curie",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 5,
+            "subject": "Biology",
+            "teacher": "C. Darwin",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 6,
+            "subject": "History",
+            "teacher": "I. Jones",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 7,
+            "subject": "English",
+            "teacher": "I. Jones",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 8,
+            "subject": "English",
+            "teacher": "I. Jones",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 9,
+            "subject": "Spanish",
+            "teacher": "P. Cruz",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 10,
+            "subject": "Spanish",
+            "teacher": "P. Cruz",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 11,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 12,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 13,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 14,
+            "subject": "Physics",
+            "teacher": "M. Curie",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 15,
+            "subject": "Chemistry",
+            "teacher": "M. Curie",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 16,
+            "subject": "French",
+            "teacher": "M. Curie",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 17,
+            "subject": "Geography",
+            "teacher": "C. Darwin",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 18,
+            "subject": "History",
+            "teacher": "I. Jones",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 19,
+            "subject": "English",
+            "teacher": "P. Cruz",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 20,
+            "subject": "Spanish",
+            "teacher": "P. Cruz",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        }
+    ]
+}'
+
+Response:
+{
+    "solution": {
+        "timeslot_list": [
+            {
+                "id": 1,
+                "day_of_week": "MONDAY",
+                "start_time": "08:30:00",
+                "end_time": "09:30:00"
+            },
+            {
+                "id": 2,
+                "day_of_week": "MONDAY",
+                "start_time": "09:30:00",
+                "end_time": "10:30:00"
+            },
+            {
+                "id": 3,
+                "day_of_week": "MONDAY",
+                "start_time": "10:30:00",
+                "end_time": "11:30:00"
+            },
+            {
+                "id": 4,
+                "day_of_week": "MONDAY",
+                "start_time": "13:30:00",
+                "end_time": "14:30:00"
+            },
+            {
+                "id": 5,
+                "day_of_week": "MONDAY",
+                "start_time": "14:30:00",
+                "end_time": "15:30:00"
+            },
+            {
+                "id": 6,
+                "day_of_week": "TUESDAY",
+                "start_time": "08:30:00",
+                "end_time": "09:30:00"
+            },
+            {
+                "id": 7,
+                "day_of_week": "TUESDAY",
+                "start_time": "09:30:00",
+                "end_time": "10:30:00"
+            },
+            {
+                "id": 8,
+                "day_of_week": "TUESDAY",
+                "start_time": "10:30:00",
+                "end_time": "11:30:00"
+            },
+            {
+                "id": 9,
+                "day_of_week": "TUESDAY",
+                "start_time": "13:30:00",
+                "end_time": "14:30:00"
+            },
+            {
+                "id": 10,
+                "day_of_week": "TUESDAY",
+                "start_time": "14:30:00",
+                "end_time": "15:30:00"
+            }
+        ],
+        "room_list": [
+            {
+                "id": 1,
+                "name": "Room A"
+            },
+            {
+                "id": 2,
+                "name": "Room B"
+            },
+            {
+                "id": 3,
+                "name": "Room C"
+            }
+        ],
+        "lesson_list": [
+            {
+                "id": 1,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 4,
+                    "day_of_week": "MONDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 2,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 2,
+                    "day_of_week": "MONDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 3,
+                "subject": "Physics",
+                "teacher": "M. Curie",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 1,
+                    "day_of_week": "MONDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 4,
+                "subject": "Chemistry",
+                "teacher": "M. Curie",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 5,
+                    "day_of_week": "MONDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 5,
+                "subject": "Biology",
+                "teacher": "C. Darwin",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 3,
+                    "day_of_week": "MONDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 6,
+                "subject": "History",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 7,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 7,
+                "subject": "English",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 10,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 8,
+                "subject": "English",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 8,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 9,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 6,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 10,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 9,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 11,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 5,
+                    "day_of_week": "MONDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 12,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 1,
+                    "day_of_week": "MONDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 13,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 3,
+                    "day_of_week": "MONDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 14,
+                "subject": "Physics",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 4,
+                    "day_of_week": "MONDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 15,
+                "subject": "Chemistry",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 9,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 16,
+                "subject": "French",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 10,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 17,
+                "subject": "Geography",
+                "teacher": "C. Darwin",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 2,
+                    "day_of_week": "MONDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 18,
+                "subject": "History",
+                "teacher": "I. Jones",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 6,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 19,
+                "subject": "English",
+                "teacher": "P. Cruz",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 8,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 20,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 7,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            }
+        ],
+        "score": {},
+        "_optapy_solver_run_id": [
+            1743452826400,
+            1742041450928,
+            "7017acc3-d5a2-11f0-a00f-00155dd9fec7"
+        ]
+    },
+    "status": "Completed"
+}
+
+curl --location 'http://127.0.0.1:8000/optapy/solve/async' \
+--header 'Content-Type: application/json' \
+--data '{
+    "timeslot_list": [
+        {
+            "id": 1,
+            "day_of_week": "MONDAY",
+            "start_time": "08:30:00",
+            "end_time": "09:30:00"
+        },
+        {
+            "id": 2,
+            "day_of_week": "MONDAY",
+            "start_time": "09:30:00",
+            "end_time": "10:30:00"
+        },
+        {
+            "id": 3,
+            "day_of_week": "MONDAY",
+            "start_time": "10:30:00",
+            "end_time": "11:30:00"
+        },
+        {
+            "id": 4,
+            "day_of_week": "MONDAY",
+            "start_time": "13:30:00",
+            "end_time": "14:30:00"
+        },
+        {
+            "id": 5,
+            "day_of_week": "MONDAY",
+            "start_time": "14:30:00",
+            "end_time": "15:30:00"
+        },
+        {
+            "id": 6,
+            "day_of_week": "TUESDAY",
+            "start_time": "08:30:00",
+            "end_time": "09:30:00"
+        },
+        {
+            "id": 7,
+            "day_of_week": "TUESDAY",
+            "start_time": "09:30:00",
+            "end_time": "10:30:00"
+        },
+        {
+            "id": 8,
+            "day_of_week": "TUESDAY",
+            "start_time": "10:30:00",
+            "end_time": "11:30:00"
+        },
+        {
+            "id": 9,
+            "day_of_week": "TUESDAY",
+            "start_time": "13:30:00",
+            "end_time": "14:30:00"
+        },
+        {
+            "id": 10,
+            "day_of_week": "TUESDAY",
+            "start_time": "14:30:00",
+            "end_time": "15:30:00"
+        }
+    ],
+    "room_list": [
+        {
+            "id": 1,
+            "name": "Room A"
+        },
+        {
+            "id": 2,
+            "name": "Room B"
+        },
+        {
+            "id": 3,
+            "name": "Room C"
+        }
+    ],
+    "lesson_list": [
+        {
+            "id": 1,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 2,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 3,
+            "subject": "Physics",
+            "teacher": "M. Curie",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 4,
+            "subject": "Chemistry",
+            "teacher": "M. Curie",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 5,
+            "subject": "Biology",
+            "teacher": "C. Darwin",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 6,
+            "subject": "History",
+            "teacher": "I. Jones",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 7,
+            "subject": "English",
+            "teacher": "I. Jones",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 8,
+            "subject": "English",
+            "teacher": "I. Jones",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 9,
+            "subject": "Spanish",
+            "teacher": "P. Cruz",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 10,
+            "subject": "Spanish",
+            "teacher": "P. Cruz",
+            "student_group": "9th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 11,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 12,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 13,
+            "subject": "Math",
+            "teacher": "A. Turing",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 14,
+            "subject": "Physics",
+            "teacher": "M. Curie",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 15,
+            "subject": "Chemistry",
+            "teacher": "M. Curie",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 16,
+            "subject": "French",
+            "teacher": "M. Curie",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 17,
+            "subject": "Geography",
+            "teacher": "C. Darwin",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 18,
+            "subject": "History",
+            "teacher": "I. Jones",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 19,
+            "subject": "English",
+            "teacher": "P. Cruz",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        },
+        {
+            "id": 20,
+            "subject": "Spanish",
+            "teacher": "P. Cruz",
+            "student_group": "10th grade",
+            "timeslot": null,
+            "room": null
+        }
+    ]
+}'
+
+Response:
+{
+    "problem_id": "fae523da-ab85-4808-9628-780c50224931",
+    "status": "SOLVING_ACTIVE"
+}
+
+
+curl --location 'http://127.0.0.1:8000/optapy/solve/status/fae523da-ab85-4808-9628-780c50224931'
+
+Response:
+{
+    "problem_id": "fae523da-ab85-4808-9628-780c50224931",
+    "status": "NOT_SOLVING",
+    "solution": {
+        "timeslot_list": [
+            {
+                "id": 1,
+                "day_of_week": "MONDAY",
+                "start_time": "08:30:00",
+                "end_time": "09:30:00"
+            },
+            {
+                "id": 2,
+                "day_of_week": "MONDAY",
+                "start_time": "09:30:00",
+                "end_time": "10:30:00"
+            },
+            {
+                "id": 3,
+                "day_of_week": "MONDAY",
+                "start_time": "10:30:00",
+                "end_time": "11:30:00"
+            },
+            {
+                "id": 4,
+                "day_of_week": "MONDAY",
+                "start_time": "13:30:00",
+                "end_time": "14:30:00"
+            },
+            {
+                "id": 5,
+                "day_of_week": "MONDAY",
+                "start_time": "14:30:00",
+                "end_time": "15:30:00"
+            },
+            {
+                "id": 6,
+                "day_of_week": "TUESDAY",
+                "start_time": "08:30:00",
+                "end_time": "09:30:00"
+            },
+            {
+                "id": 7,
+                "day_of_week": "TUESDAY",
+                "start_time": "09:30:00",
+                "end_time": "10:30:00"
+            },
+            {
+                "id": 8,
+                "day_of_week": "TUESDAY",
+                "start_time": "10:30:00",
+                "end_time": "11:30:00"
+            },
+            {
+                "id": 9,
+                "day_of_week": "TUESDAY",
+                "start_time": "13:30:00",
+                "end_time": "14:30:00"
+            },
+            {
+                "id": 10,
+                "day_of_week": "TUESDAY",
+                "start_time": "14:30:00",
+                "end_time": "15:30:00"
+            }
+        ],
+        "room_list": [
+            {
+                "id": 1,
+                "name": "Room A"
+            },
+            {
+                "id": 2,
+                "name": "Room B"
+            },
+            {
+                "id": 3,
+                "name": "Room C"
+            }
+        ],
+        "lesson_list": [
+            {
+                "id": 1,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 4,
+                    "day_of_week": "MONDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 2,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 2,
+                    "day_of_week": "MONDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 3,
+                "subject": "Physics",
+                "teacher": "M. Curie",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 1,
+                    "day_of_week": "MONDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 4,
+                "subject": "Chemistry",
+                "teacher": "M. Curie",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 5,
+                    "day_of_week": "MONDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 5,
+                "subject": "Biology",
+                "teacher": "C. Darwin",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 3,
+                    "day_of_week": "MONDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 6,
+                "subject": "History",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 7,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 7,
+                "subject": "English",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 10,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 8,
+                "subject": "English",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 8,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 9,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 6,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 10,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 9,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 11,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 5,
+                    "day_of_week": "MONDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 12,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 1,
+                    "day_of_week": "MONDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 13,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 3,
+                    "day_of_week": "MONDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 14,
+                "subject": "Physics",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 4,
+                    "day_of_week": "MONDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 15,
+                "subject": "Chemistry",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 9,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 16,
+                "subject": "French",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 10,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 17,
+                "subject": "Geography",
+                "teacher": "C. Darwin",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 2,
+                    "day_of_week": "MONDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 18,
+                "subject": "History",
+                "teacher": "I. Jones",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 6,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 19,
+                "subject": "English",
+                "teacher": "P. Cruz",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 8,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 20,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 7,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            }
+        ],
+        "score": "0hard/10soft"
+    }
+}
+
+
+curl --location 'http://127.0.0.1:8000/optapy/solution/fae523da-ab85-4808-9628-780c50224931'
+Response:
+{
+    "solution": {
+        "timeslot_list": [
+            {
+                "id": 1,
+                "day_of_week": "MONDAY",
+                "start_time": "08:30:00",
+                "end_time": "09:30:00"
+            },
+            {
+                "id": 2,
+                "day_of_week": "MONDAY",
+                "start_time": "09:30:00",
+                "end_time": "10:30:00"
+            },
+            {
+                "id": 3,
+                "day_of_week": "MONDAY",
+                "start_time": "10:30:00",
+                "end_time": "11:30:00"
+            },
+            {
+                "id": 4,
+                "day_of_week": "MONDAY",
+                "start_time": "13:30:00",
+                "end_time": "14:30:00"
+            },
+            {
+                "id": 5,
+                "day_of_week": "MONDAY",
+                "start_time": "14:30:00",
+                "end_time": "15:30:00"
+            },
+            {
+                "id": 6,
+                "day_of_week": "TUESDAY",
+                "start_time": "08:30:00",
+                "end_time": "09:30:00"
+            },
+            {
+                "id": 7,
+                "day_of_week": "TUESDAY",
+                "start_time": "09:30:00",
+                "end_time": "10:30:00"
+            },
+            {
+                "id": 8,
+                "day_of_week": "TUESDAY",
+                "start_time": "10:30:00",
+                "end_time": "11:30:00"
+            },
+            {
+                "id": 9,
+                "day_of_week": "TUESDAY",
+                "start_time": "13:30:00",
+                "end_time": "14:30:00"
+            },
+            {
+                "id": 10,
+                "day_of_week": "TUESDAY",
+                "start_time": "14:30:00",
+                "end_time": "15:30:00"
+            }
+        ],
+        "room_list": [
+            {
+                "id": 1,
+                "name": "Room A"
+            },
+            {
+                "id": 2,
+                "name": "Room B"
+            },
+            {
+                "id": 3,
+                "name": "Room C"
+            }
+        ],
+        "lesson_list": [
+            {
+                "id": 1,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 4,
+                    "day_of_week": "MONDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 2,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 2,
+                    "day_of_week": "MONDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 3,
+                "subject": "Physics",
+                "teacher": "M. Curie",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 1,
+                    "day_of_week": "MONDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 4,
+                "subject": "Chemistry",
+                "teacher": "M. Curie",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 5,
+                    "day_of_week": "MONDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 5,
+                "subject": "Biology",
+                "teacher": "C. Darwin",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 3,
+                    "day_of_week": "MONDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 6,
+                "subject": "History",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 7,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 7,
+                "subject": "English",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 10,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 8,
+                "subject": "English",
+                "teacher": "I. Jones",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 8,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 9,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 6,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 10,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "9th grade",
+                "timeslot": {
+                    "id": 9,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 11,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 5,
+                    "day_of_week": "MONDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 12,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 1,
+                    "day_of_week": "MONDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 13,
+                "subject": "Math",
+                "teacher": "A. Turing",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 3,
+                    "day_of_week": "MONDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 14,
+                "subject": "Physics",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 4,
+                    "day_of_week": "MONDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 15,
+                "subject": "Chemistry",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 9,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "13:30:00",
+                    "end_time": "14:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 16,
+                "subject": "French",
+                "teacher": "M. Curie",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 10,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "14:30:00",
+                    "end_time": "15:30:00"
+                },
+                "room": {
+                    "id": 3,
+                    "name": "Room C"
+                }
+            },
+            {
+                "id": 17,
+                "subject": "Geography",
+                "teacher": "C. Darwin",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 2,
+                    "day_of_week": "MONDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 18,
+                "subject": "History",
+                "teacher": "I. Jones",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 6,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "08:30:00",
+                    "end_time": "09:30:00"
+                },
+                "room": {
+                    "id": 1,
+                    "name": "Room A"
+                }
+            },
+            {
+                "id": 19,
+                "subject": "English",
+                "teacher": "P. Cruz",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 8,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "10:30:00",
+                    "end_time": "11:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            },
+            {
+                "id": 20,
+                "subject": "Spanish",
+                "teacher": "P. Cruz",
+                "student_group": "10th grade",
+                "timeslot": {
+                    "id": 7,
+                    "day_of_week": "TUESDAY",
+                    "start_time": "09:30:00",
+                    "end_time": "10:30:00"
+                },
+                "room": {
+                    "id": 2,
+                    "name": "Room B"
+                }
+            }
+        ],
+        "score": "0hard/10soft"
+    },
+    "status": "COMPLETED"
+}
+
+
+
+
 
 https://priceline-editor.replit.app/
+
+
