@@ -1,4 +1,5 @@
 from datetime import timedelta
+import json
 from typing import Any
 import uuid
 
@@ -68,7 +69,7 @@ async def resolveSchoolTimeTableRostering(timeTableDTO: TimeTableDTO):
     )
 
     #problem = generate_problem()
-    logger.info("Problem generated: %s", problem)
+    logger.info("Problem generated: %s", json.dump(problem))
     solution = solver.solve(problem)
     logger.info("Solution found: %s", solution)
 
