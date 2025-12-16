@@ -42,11 +42,10 @@ async def resolveSchoolTimeTableRostering(timeTableDTO: TimeTableDTO):
     timeslot_map = {ts.id: Timeslot(ts.id, ts.day_of_week, ts.start_time, ts.end_time)
                     for ts in timeTableDTO.timeslot_list}
  
-    logger.info("Timeslot map: %s", timeslot_map)
+
     room_map = {r.id: Room(r.id, r.name)
                 for r in timeTableDTO.room_list}
  
-    logger.info("Room map: %s", room_map)
  
     lesson_list = []
     for l in timeTableDTO.lesson_list:
@@ -60,7 +59,6 @@ async def resolveSchoolTimeTableRostering(timeTableDTO: TimeTableDTO):
         )
         lesson_list.append(lesson)
    
-    logger.info("Lesson list: %s", lesson_list)
  
     problem = TimeTable(
         list(timeslot_map.values()),
@@ -68,8 +66,7 @@ async def resolveSchoolTimeTableRostering(timeTableDTO: TimeTableDTO):
         lesson_list
     )
 
-    #problem = generate_problem()
-    logger.info("Problem generated: %s", json.dump(problem))
+    #problem = generate_problem()       
     solution = solver.solve(problem)
     logger.info("Solution found: %s", solution)
 

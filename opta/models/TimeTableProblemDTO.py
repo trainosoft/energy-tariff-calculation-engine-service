@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from datetime import time
  
 class RoomDTO(BaseModel):
@@ -24,3 +24,7 @@ class TimeTableDTO(BaseModel):
     timeslot_list: List[TimeslotDTO]
     room_list: List[RoomDTO]
     lesson_list: List[LessonDTO]
+
+class SolveRequest(BaseModel):
+    problemType: str
+    problemData: Dict[str, Any]
