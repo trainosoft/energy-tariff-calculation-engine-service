@@ -12,14 +12,26 @@ class TariffCalculationRequest(BaseModel):
     # peakHRUnits: float
     # offPeakHRUnits: float
 
-    category: str
-    subcategory: str
-    units_consumed: float
-    contracted_load: float
-    connected_load: float
-    days: int
-    meter_rent: float
-    adjustment: float 
+    # category: str
+    # subcategory: str
+    # units_consumed: float
+    # contracted_load: float
+    # connected_load: float
+    # days: int
+    # meter_rent: float
+    # adjustment: float 
+
+    # consumption_unit: float
+    # Opening_Balance: float
+    # Date: str
+
+    DVC_provide_ECR: float
+    DVC_provide_MVCA: float
+    last_month_unit_consumption: float
+    consumption_unit: float
+    Opening_Balance: float
+    Voucher: float
+    Date: str
 
 class BatchTariffCalculationRequest(BaseModel):
     requests: List[TariffCalculationRequest]
