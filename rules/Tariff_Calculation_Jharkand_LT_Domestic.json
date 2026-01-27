@@ -1,0 +1,143 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "type": "inputNode",
+      "content": {
+        "schema": ""
+      },
+      "id": "557b36dd-2ab9-413c-8aa3-34b0dff04fb2",
+      "name": "request",
+      "position": {
+        "x": -155,
+        "y": 170
+      }
+    },
+    {
+      "type": "expressionNode",
+      "content": {
+        "expressions": [
+          {
+            "id": "ba8d4ddf-3eb2-4729-b81c-99d6610026ea",
+            "key": "Sanction_load",
+            "value": "5"
+          },
+          {
+            "id": "d4284366-a39c-4ba5-be64-b2efe3657767",
+            "key": "Fixed_charges",
+            "value": "75"
+          },
+          {
+            "id": "e328d0de-2eca-4296-8508-6a2dc109b9c0",
+            "key": "Energy_charges",
+            "value": "4.3"
+          },
+          {
+            "id": "d3e8657a-0fe5-417c-a2c4-5cd4bfc5c672",
+            "key": "FPPAS_charges",
+            "value": "0"
+          },
+          {
+            "id": "3d4fcbd8-bc53-49a9-a27c-dd1d07147adb",
+            "key": "Rebate",
+            "value": "5"
+          },
+          {
+            "id": "6060572c-6353-4ef3-b034-1536c57ea591",
+            "key": "Energy_duty",
+            "value": "6"
+          }
+        ],
+        "passThrough": true,
+        "inputField": null,
+        "outputPath": null,
+        "executionMode": "single"
+      },
+      "id": "2ec614a0-861e-40dc-83e2-6341866866f5",
+      "name": "All Charges",
+      "position": {
+        "x": 410,
+        "y": 170
+      }
+    },
+    {
+      "type": "expressionNode",
+      "content": {
+        "expressions": [
+          {
+            "id": "d7c3eafa-cd2c-42e1-b034-1bc84bb74f20",
+            "key": "fixed_charges_per_day",
+            "value": "round(Fixed_charges / days, 2)"
+          },
+          {
+            "id": "5d6c18e0-b22e-494d-909f-63f5d7d28f5a",
+            "key": "total_energy_charges",
+            "value": "round(consumption_unit*Energy_charges, 2)"
+          },
+          {
+            "id": "9cddb54e-48fe-4e93-afd9-e881b643e530",
+            "key": "total_FPPAS_charges",
+            "value": "round(consumption_unit*FPPAS_charges, 2)"
+          },
+          {
+            "id": "2c187a29-0471-4018-99e2-e305d9429fa1",
+            "key": "total_energy_duty",
+            "value": "round((Energy_duty*($.total_energy_charges+$.total_FPPAS_charges))/100, 2)"
+          },
+          {
+            "id": "d5614497-e29d-466a-8660-8455f4c95259",
+            "key": "total_rebate",
+            "value": "round((Rebate*-$.total_energy_charges)/100, 2)"
+          },
+          {
+            "id": "5f4757e5-401a-4667-aa52-effdb284aca4",
+            "key": "total_bill",
+            "value": "round(Opening_Balance - ($.total_energy_charges + $.total_energy_duty + $.total_FPPAS_charges + $.total_rebate + $.fixed_charges_per_day), 2)"
+          }
+        ],
+        "passThrough": true,
+        "inputField": null,
+        "outputPath": null,
+        "executionMode": "single"
+      },
+      "id": "bc4b9f3c-b960-4138-8366-224d32aeacec",
+      "name": "Bill calculation",
+      "position": {
+        "x": 705,
+        "y": 170
+      }
+    },
+    {
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.Date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    days,\r\n    consumption_unit: input.consumption_unit,\r\n    Opening_Balance: input.Opening_Balance\r\n  };\r\n};\r\n"
+      },
+      "id": "bda46cef-d643-46f9-b733-d0d914a0919d",
+      "name": "calculate days per month",
+      "position": {
+        "x": 125,
+        "y": 170
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "313973e2-7066-477a-9dbe-39e8b2e7cee3",
+      "sourceId": "557b36dd-2ab9-413c-8aa3-34b0dff04fb2",
+      "targetId": "bda46cef-d643-46f9-b733-d0d914a0919d",
+      "type": "edge"
+    },
+    {
+      "id": "9b9405c0-5d08-403a-9251-95f1004de9ad",
+      "sourceId": "bda46cef-d643-46f9-b733-d0d914a0919d",
+      "targetId": "2ec614a0-861e-40dc-83e2-6341866866f5",
+      "type": "edge"
+    },
+    {
+      "id": "91b6f4eb-8722-462d-85e8-7c3617f581c3",
+      "sourceId": "2ec614a0-861e-40dc-83e2-6341866866f5",
+      "targetId": "bc4b9f3c-b960-4138-8366-224d32aeacec",
+      "type": "edge"
+    }
+  ]
+}
