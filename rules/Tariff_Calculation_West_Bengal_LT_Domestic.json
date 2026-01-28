@@ -16,7 +16,7 @@
     {
       "type": "functionNode",
       "content": {
-        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.Date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    days,\r\n    DVC_provide_ECR: input.DVC_provide_ECR,\r\n    DVC_provide_MVCA: input.DVC_provide_MVCA,\r\n    last_month_unit_consumption: input.last_month_unit_consumption,\r\n    Opening_Balance: input.Opening_Balance,\r\n    consumption_unit: input.consumption_unit,\r\n    Voucher: input.Voucher\r\n  };\r\n};\r\n"
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.Date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    days,\r\n    DVC_provide_ECR: input.DVC_provide_ECR,\r\n    DVC_provide_MVCA: input.DVC_provide_MVCA,\r\n    last_month_unit_consumption: input.last_month_unit_consumption,\r\n    Opening_Balance: input.Opening_Balance,\r\n    consumption_units: input.consumption_units,\r\n    Voucher: input.Voucher,\r\n    Cumulative_Consumption_units_raw: input.Cumulative_Consumption_units_raw\r\n  };\r\n};\r\n"
       },
       "id": "a45f4006-eb08-4926-ba07-f82c650343a6",
       "name": "calculate days per month",
@@ -52,7 +52,7 @@
           {
             "id": "ba937a50-c878-4b91-a460-0004703346c1",
             "key": "Cumulative_Consumption_units",
-            "value": "round(consumption_unit, 2)"
+            "value": "round(Cumulative_Consumption_units_raw, 2)"
           }
         ],
         "passThrough": true,
@@ -79,7 +79,7 @@
           {
             "id": "0f9a0b37-bd75-43e4-83c0-6263fa575d62",
             "key": "MVCA",
-            "value": "round(DVC_provide_MVCA/days, 12)"
+            "value": "round(DVC_provide_MVCA/days, 9)"
           },
           {
             "id": "13ff5ade-3a2a-414d-adbc-2c8cf2f8ca9c",
@@ -89,7 +89,7 @@
           {
             "id": "62c9b7bc-d3b8-46a1-b87e-8fa15958146a",
             "key": "total_energy_charges",
-            "value": "round(Cumulative_Consumption_units*Energy_charges, 2)"
+            "value": "round(consumption_units*Energy_charges, 2)"
           },
           {
             "id": "db4960f8-69c3-4d65-bfbc-1a93b88fcdee",
@@ -104,12 +104,12 @@
           {
             "id": "05fe8f70-52f1-46d3-87ac-05198960af54",
             "key": "total_ED_Duty_in_RS_slab_1",
-            "value": "round(($.total_energy_charges+$.total_Differential_ECR+$.total_MVCA)*slab_1, 2)"
+            "value": "round(($.total_energy_charges + $.total_Differential_ECR + $.total_MVCA)*slab_1/100, 2)"
           },
           {
             "id": "e7394da7-d3aa-4cd8-84b5-263ccbeadb86",
             "key": "total_ED_Duty_in_RS_slab_2",
-            "value": "round(($.total_energy_charges+$.total_Differential_ECR+$.total_MVCA)*slab_2, 2)"
+            "value": "round(($.total_energy_charges + $.total_Differential_ECR + $.total_MVCA)*slab_2/100, 2)"
           },
           {
             "id": "675ac4dc-4a1b-4332-92f6-d130a1ed42e5",
@@ -163,7 +163,7 @@
           {
             "id": "bb9aeabf-6f47-49d7-902e-7158079b6895",
             "name": "Input",
-            "field": "consumption_unit"
+            "field": "Cumulative_Consumption_units"
           }
         ],
         "outputs": [
