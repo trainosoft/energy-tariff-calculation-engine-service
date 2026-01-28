@@ -1,7 +1,8 @@
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
 import json
-from fastapi import APIRouter, HTTPException
+from typing import Any
+from fastapi import APIRouter, HTTPException, Request, Body
 from config.logger import logger
 from model.models import BatchTariffCalculationRequest, BatchTariffResponse, EvaluateResponse, TariffCalculationRequest, TariffEvaluationFailure, TariffEvaluationSuccess
 from zen import ZenEngine
@@ -10,8 +11,9 @@ energyTariffCalculatorRouter = APIRouter()
 executor = ProcessPoolExecutor(max_workers=8)
 
 @energyTariffCalculatorRouter.post("/evaluate")
-async def evaluateTarrifCalcaulationRules(req: TariffCalculationRequest, decision_table_key: str | None = None):
-    logger.info("evaluateTarrifCalcaulationRules invoked, req: %s", req.json())
+async def evaluateTarrifCalcaulationRules(request: Request, decision_table_key: str | None = None):
+    context = await request.json()
+    logger.info("evaluateTarrifCalcaulationRules invoked, req: %s", context)
 
     try:
         with open("rules/"+decision_table_key) as f:
@@ -22,8 +24,6 @@ async def evaluateTarrifCalcaulationRules(req: TariffCalculationRequest, decisio
     try:
         engine = ZenEngine()
         decision = engine.create_decision(model)
-
-        context = req.dict()
 
         result = decision.evaluate(context)
         logger.info(f"Tariff calculation result: {result}")
@@ -165,7 +165,13 @@ def evaluate_single(decision_model, context):
     return decision.evaluate(context)
 
 @energyTariffCalculatorRouter.post("/evaluate/batch/parallel/v2")
-async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest, decision_table_key: str | None = None):
+async def evaluateTariffBatchParallel(payload: Any = Body(...), decision_table_key: str | None = None):
+    if not isinstance(payload, list):
+        raise HTTPException(
+            status_code=400,
+            detail="Payload must be an array of request objects"
+        )
+
     try:
         with open("rules/"+decision_table_key) as f:
             model = json.load(f)
@@ -179,9 +185,9 @@ async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest, decisi
             executor,
             evaluate_single,
             model,
-            item.dict()
+            item
         )
-        for item in req.requests
+        for item in payload
     ]
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -189,7 +195,7 @@ async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest, decisi
     success = []
     failed = []
 
-    for ctx, r in zip(req.requests, results):
+    for ctx, r in zip(payload, results):
         if isinstance(r, Exception):
             failed.append(
                 TariffEvaluationFailure(context=ctx.dict(), error=str(r))
@@ -201,10 +207,11 @@ async def evaluateTariffBatchParallel(req: BatchTariffCalculationRequest, decisi
 
     return {
         "summary": {
-            "total_requests": len(req.requests),
+            "total_requests": len(payload),
             "succeeded": len(success),
             "failed": len(failed),
         },
         "success": success,
         "failed": failed,
     }
+

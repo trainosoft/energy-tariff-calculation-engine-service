@@ -1,0 +1,119 @@
+Tariff JK LT Domestic
+
+Requests Body
+{
+  "consumption_unit":44.99,
+  "Opening_Balance":0,
+  "Date":"2025-08-01"
+}
+
+Response
+{
+  Energy_charges: 4.3,
+  Energy_duty: 6,
+  FPPAS_charges: 0,
+  Fixed_charges: 75,
+  Opening_Balance: 0,
+  Rebate: 5,
+  Sanction_load: 5,
+  consumption_unit: 44.99,
+  days: 31,
+  final_bill_amount: 197.82,
+  fixed_charges_per_day: 2.42,
+  total_FPPAS_charges: 0,
+  total_energy_charges: 193.46,
+  total_energy_duty: 11.61,
+  total_rebate: -9.67,
+  updated_opening_balance: -197.82,
+}
+
+
+
+Tariff WB LT Domestic
+
+Requests Body
+{
+  "DVC_provide_ECR":46.8,
+  "DVC_provide_MVCA":0.05,
+  "last_month_unit_consumption":48.368,
+  "consumption_units":48.368,
+  "Opening_Balance":0,
+  "Cumulative_Consumption_units_raw":48.368,
+  "Voucher":0,
+  "Date":"2025-09-01"
+}
+
+
+Response
+{
+  Cumulative_Consumption_units: 48.37,
+  Cumulative_Consumption_units_raw: 48.368,
+  DVC_provide_ECR: 46.8,
+  DVC_provide_MVCA: 0.05,
+  Differential_ECR: 0.0156,
+  Energy_charges: 6.61,
+  Fixed_charges: 75,
+  MVCA: 0.001666667,
+  Opening_Balance: 0,
+  Rebate: 5,
+  Sanction_load: 5,
+  Voucher: 0,
+  consumption_units: 48.368,
+  days: 30,
+  final_bill_amount: 322.87,
+  fixed_charges_per_day: 2.5,
+  last_month_unit_consumption: 48.368,
+  slab_1: 0,
+  slab_2: 0,
+  total_Differential_ECR: 0.75,
+  total_ED_Duty_in_RS_slab_1: 0,
+  total_ED_Duty_in_RS_slab_2: 0,
+  total_Ebill_Opted: 0.17,
+  total_MVCA: 0.08,
+  total_energy_charges: 319.71,
+  total_rebate_in_RS: 0,
+  updated_opening_balance: -322.87,
+}
+
+
+
+Tariff JK LT Commercial
+
+Requests Body
+{
+  "last_month_unit_consumption":41.50,
+  "consumption_unit":45.00,
+  "Contract_Demand_in_kW":1.875,
+  "Date":"2025-08-01",
+  "Opening_Balance":0,
+  "difference":32.06
+}
+
+
+Response
+{
+  '100%_of_Contract_Demand': 9.35,
+  '50%_of_Contract_Demand': 4.25,
+  Contract_Demand: 8.5,
+  Contract_Demand_in_kW: 1.875,
+  Energy_charges: 4.3,
+  Energy_duty: 6,
+  FPPAS_charges: 0.66,
+  Fixed_charges: 150,
+  Opening_Balance: 0,
+  Penalty: 0,
+  Rebate: 3,
+  Sanction_load: 10,
+  consumption_unit: 45,
+  days: 31,
+  difference: 32.06,
+  final_bill_amount: 269.46,
+  fixed_charges_per_day: 9.07,
+  last_month_unit_consumption: 41.5,
+  total_FPPAS_charges: 27.39,
+  total_Penalty: 0,
+  total_energy_charges: 193.5,
+  total_energy_duty: 13.25,
+  total_rebate: -5.81,
+  update_opening_balance: -269.46,
+}

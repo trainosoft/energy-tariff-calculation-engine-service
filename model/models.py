@@ -21,17 +21,31 @@ class TariffCalculationRequest(BaseModel):
     # meter_rent: float
     # adjustment: float 
 
+    # For Tariff JK LT Domestic
+
     # consumption_unit: float
     # Opening_Balance: float
     # Date: str
 
-    DVC_provide_ECR: float
-    DVC_provide_MVCA: float
+    # For Tariff WB LT Domestic
+
+    # DVC_provide_ECR: float
+    # DVC_provide_MVCA: float
+    # last_month_unit_consumption: float
+    # consumption_units: float
+    # Opening_Balance: float
+    # Cumulative_Consumption_units_raw: float
+    # Voucher: float
+    # Date: str
+
+    # For Tariff JK LT Commercial
+    
     last_month_unit_consumption: float
     consumption_unit: float
-    Opening_Balance: float
-    Voucher: float
+    Contract_Demand_in_kW: float
     Date: str
+    Opening_Balance: float
+    difference: float
 
 class BatchTariffCalculationRequest(BaseModel):
     requests: List[TariffCalculationRequest]
