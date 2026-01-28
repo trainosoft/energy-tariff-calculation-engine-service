@@ -2,20 +2,24 @@
   "contentType": "application/vnd.gorules.decision",
   "nodes": [
     {
+      "id": "557b36dd-2ab9-413c-8aa3-34b0dff04fb2",
+      "name": "request",
       "type": "inputNode",
       "content": {
         "schema": ""
       },
-      "id": "557b36dd-2ab9-413c-8aa3-34b0dff04fb2",
-      "name": "request",
       "position": {
         "x": -155,
         "y": 170
       }
     },
     {
+      "id": "2ec614a0-861e-40dc-83e2-6341866866f5",
+      "name": "All Charges",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "ba8d4ddf-3eb2-4729-b81c-99d6610026ea",
@@ -49,20 +53,20 @@
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "2ec614a0-861e-40dc-83e2-6341866866f5",
-      "name": "All Charges",
       "position": {
         "x": 410,
         "y": 170
       }
     },
     {
+      "id": "bc4b9f3c-b960-4138-8366-224d32aeacec",
+      "name": "Bill calculation",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "d7c3eafa-cd2c-42e1-b034-1bc84bb74f20",
@@ -91,29 +95,30 @@
           },
           {
             "id": "5f4757e5-401a-4667-aa52-effdb284aca4",
-            "key": "total_bill",
+            "key": "updated_opening_balance",
             "value": "round(Opening_Balance - ($.total_energy_charges + $.total_energy_duty + $.total_FPPAS_charges + $.total_rebate + $.fixed_charges_per_day), 2)"
+          },
+          {
+            "id": "14dea787-7b8d-43b7-a9ee-c4d9c54b1476",
+            "key": "final_bill_amount",
+            "value": "round($.total_energy_charges + $.total_energy_duty + $.total_FPPAS_charges + $.total_rebate + $.fixed_charges_per_day, 2)"
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "bc4b9f3c-b960-4138-8366-224d32aeacec",
-      "name": "Bill calculation",
       "position": {
         "x": 705,
         "y": 170
       }
     },
     {
+      "id": "bda46cef-d643-46f9-b733-d0d914a0919d",
+      "name": "calculate days per month",
       "type": "functionNode",
       "content": {
         "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.Date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    days,\r\n    consumption_unit: input.consumption_unit,\r\n    Opening_Balance: input.Opening_Balance\r\n  };\r\n};\r\n"
       },
-      "id": "bda46cef-d643-46f9-b733-d0d914a0919d",
-      "name": "calculate days per month",
       "position": {
         "x": 125,
         "y": 170
@@ -123,21 +128,21 @@
   "edges": [
     {
       "id": "313973e2-7066-477a-9dbe-39e8b2e7cee3",
+      "type": "edge",
       "sourceId": "557b36dd-2ab9-413c-8aa3-34b0dff04fb2",
-      "targetId": "bda46cef-d643-46f9-b733-d0d914a0919d",
-      "type": "edge"
+      "targetId": "bda46cef-d643-46f9-b733-d0d914a0919d"
     },
     {
       "id": "9b9405c0-5d08-403a-9251-95f1004de9ad",
+      "type": "edge",
       "sourceId": "bda46cef-d643-46f9-b733-d0d914a0919d",
-      "targetId": "2ec614a0-861e-40dc-83e2-6341866866f5",
-      "type": "edge"
+      "targetId": "2ec614a0-861e-40dc-83e2-6341866866f5"
     },
     {
       "id": "91b6f4eb-8722-462d-85e8-7c3617f581c3",
+      "type": "edge",
       "sourceId": "2ec614a0-861e-40dc-83e2-6341866866f5",
-      "targetId": "bc4b9f3c-b960-4138-8366-224d32aeacec",
-      "type": "edge"
+      "targetId": "bc4b9f3c-b960-4138-8366-224d32aeacec"
     }
   ]
 }
