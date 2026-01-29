@@ -1,0 +1,25 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: verify-energy-tariff-engine-signature
+spec:
+  validationFailureAction: Audit
+  background: false
+  rules:
+    - name: verify-energy-tariff-engine
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+      verifyImages:
+        - imageReferences:
+            - "energy-tariff-engine:*"
+          attestors:
+            - entries:
+                - keys:
+                    publicKeys: |
+                      -----BEGIN PUBLIC KEY-----
+                      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmGzjpvvrhATPKeuTOGmODG2AROuj
+                      ucBTJPbsQYsYBKz07tQIja1Tzdvn/6aUZqU/v5qsg6B1Gpau8vhyt7orZw==
+                      -----END PUBLIC KEY-----

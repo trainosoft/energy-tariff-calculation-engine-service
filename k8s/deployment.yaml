@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: energy-tariff-engine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: energy-tariff-engine
+  template:
+    metadata:
+      labels:
+        app: energy-tariff-engine
+    spec:
+      containers:
+        - name: energy-tariff-engine
+          image: rutusoft123/energy-tariff-engine:1.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8001
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
