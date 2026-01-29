@@ -120,7 +120,7 @@ async def evaluateTariffBatchparallel(req: BatchTariffCalculationRequest):
 
     # Load Zen rules
     try:
-        with open("rules/energy_tariff_calculation.json") as f:
+        with open("rules/MIZO-FY-24-25.json") as f:
             model = json.load(f)
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="Rules file missing")

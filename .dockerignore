@@ -1,0 +1,10 @@
+.venv
+__pycache__
+*.pyc
+.idea
+.git
+.gitignore
+.env
+build
+dist
+node_modules

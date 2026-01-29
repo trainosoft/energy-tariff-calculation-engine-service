@@ -4,13 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.electricityRarrifCcalculation import energyTariffCalculatorRouter
 from config.config import ALLOWED_ORIGINS
 from config.logger import logger
-
+import uvicorn
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("lifespan invoked")
 
-#app = FastAPI(lifespan=lifespan)
 app = FastAPI()
 @app.middleware("http")
 async def log_origin(request, call_next):
@@ -20,7 +19,7 @@ async def log_origin(request, call_next):
 
     return await call_next(request)
 
-# ✅ Add CORS middleware
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS or ["*"],  # use from config
@@ -31,3 +30,16 @@ app.add_middleware(
 
 app.include_router(energyTariffCalculatorRouter, prefix="/calculate-tarrif", tags=["Calculate electricity tarrif"])
 app.include_router(energyTariffCalculatorRouter, prefix="/calculate-tarrif/batch", tags=["Calculate electricity tarrif batch"])
+app.include_router(energyTariffCalculatorRouter, prefix="/calculate-tarrif/batch", tags=["Calculate electricity tarrif batch"])
+
+def main():
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8001,
+        log_level="info"
+    )
+
+if __name__ == "__main__":
+    main()
+
