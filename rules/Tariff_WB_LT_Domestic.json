@@ -18,7 +18,7 @@
       "name": "calculate days per month",
       "type": "functionNode",
       "content": {
-        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.Date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    days,\r\n    DVC_provide_ECR: input.DVC_provide_ECR,\r\n    DVC_provide_MVCA: input.DVC_provide_MVCA,\r\n    last_month_unit_consumption: input.last_month_unit_consumption,\r\n    Opening_Balance: input.Opening_Balance,\r\n    consumption_units: input.consumption_units,\r\n    Voucher: input.Voucher,\r\n    Cumulative_Consumption_units_raw: input.Cumulative_Consumption_units_raw\r\n  };\r\n};\r\n"
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.current_date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    ...input,\r\n    days\r\n  };\r\n};\r\n"
       },
       "position": {
         "x": 335,
@@ -35,28 +35,23 @@
         "expressions": [
           {
             "id": "e8ae615c-042b-442a-ab30-929b12843469",
-            "key": "Sanction_load",
+            "key": "sanction_load",
             "value": "5"
           },
           {
             "id": "107f34c6-1d6b-49ee-b2e0-e4ff19086979",
-            "key": "Fixed_charges",
+            "key": "fixed_charge_per_connection",
             "value": "75"
           },
           {
             "id": "68a1da4a-25e5-4456-b489-507267926130",
-            "key": "Energy_charges",
+            "key": "energy_charge_per_unit",
             "value": "6.61"
           },
           {
             "id": "593a39ea-0422-4fb7-9525-a6c6ffd6da0b",
-            "key": "Rebate",
+            "key": "rebate_on_ebill_per_month",
             "value": "5"
-          },
-          {
-            "id": "ba937a50-c878-4b91-a460-0004703346c1",
-            "key": "Cumulative_Consumption_units",
-            "value": "round(Cumulative_Consumption_units_raw, 2)"
           }
         ],
         "passThrough": true,
@@ -77,63 +72,63 @@
         "expressions": [
           {
             "id": "0df8b89a-f65a-49fa-8cd5-d51c3af5ca12",
-            "key": "Differential_ECR",
-            "value": "round(DVC_provide_ECR/100/days, 4)"
+            "key": "diff_ECR_rate_per_unit_per_day",
+            "value": "round(diff_ECR_rate_per_100_units/100/days, 4)"
           },
           {
             "id": "0f9a0b37-bd75-43e4-83c0-6263fa575d62",
-            "key": "MVCA",
-            "value": "round(DVC_provide_MVCA/days, 9)"
+            "key": "MVCA_rate_per_day",
+            "value": "round(MVCA_monthly_rate/days, 9)"
           },
           {
             "id": "13ff5ade-3a2a-414d-adbc-2c8cf2f8ca9c",
             "key": "fixed_charges_per_day",
-            "value": "round(Fixed_charges/days, 2)"
+            "value": "round(fixed_charge_per_connection/days, 2)"
           },
           {
             "id": "62c9b7bc-d3b8-46a1-b87e-8fa15958146a",
-            "key": "total_energy_charges",
-            "value": "round(consumption_units*Energy_charges, 2)"
+            "key": "energy_charge",
+            "value": "round(consumption_units * energy_charge_per_unit, 2)"
           },
           {
             "id": "db4960f8-69c3-4d65-bfbc-1a93b88fcdee",
-            "key": "total_Differential_ECR",
-            "value": "round($.Differential_ECR*last_month_unit_consumption, 2)"
+            "key": "differential_ECR",
+            "value": "round($.diff_ECR_rate_per_unit_per_day*last_month_unit_consumption, 2)"
           },
           {
             "id": "953c028b-b1c0-4190-8488-9d42fbd50bd2",
-            "key": "total_MVCA",
-            "value": "round($.MVCA*last_month_unit_consumption, 2)"
+            "key": "MVCA",
+            "value": "round($.MVCA_rate_per_day * last_month_unit_consumption, 2)"
           },
           {
             "id": "05fe8f70-52f1-46d3-87ac-05198960af54",
-            "key": "total_ED_Duty_in_RS_slab_1",
-            "value": "round(($.total_energy_charges + $.total_Differential_ECR + $.total_MVCA)*slab_1/100, 2)"
+            "key": "ED_slab_1",
+            "value": "round(($.energy_charge + $.differential_ECR + $.MVCA)*slab_1/100, 2)"
           },
           {
             "id": "e7394da7-d3aa-4cd8-84b5-263ccbeadb86",
-            "key": "total_ED_Duty_in_RS_slab_2",
-            "value": "round(($.total_energy_charges + $.total_Differential_ECR + $.total_MVCA)*slab_2/100, 2)"
+            "key": "ED_slab_2",
+            "value": "round(($.energy_charge + $.differential_ECR + $.MVCA)*slab_2/100, 2)"
           },
           {
             "id": "675ac4dc-4a1b-4332-92f6-d130a1ed42e5",
-            "key": "total_rebate_in_RS",
-            "value": "round(Voucher*(100+1)/100, 2)"
+            "key": "rebate",
+            "value": "round(voucher_amount * (100+1)/100, 2)"
           },
           {
             "id": "d69fb55b-6dfc-4508-8ca7-a5888b2fc2ff",
-            "key": "total_Ebill_Opted",
-            "value": "round(Rebate/days, 2)"
+            "key": "rebate_on_ebill",
+            "value": "round(rebate_on_ebill_per_month/days, 2)"
           },
           {
             "id": "2ebac415-a657-4ae6-a2ae-b3db8a8e5ec4",
             "key": "updated_opening_balance",
-            "value": "round(Opening_Balance-($.fixed_charges_per_day + $.total_energy_charges + $.total_Differential_ECR + $.total_MVCA + $.total_ED_Duty_in_RS_slab_1 + $.total_ED_Duty_in_RS_slab_2 - $.total_rebate_in_RS - $.total_Ebill_Opted), 2)"
+            "value": "round(opening_balance-($.fixed_charges_per_day + $.energy_charge + $.differential_ECR + $.MVCA + $.ED_slab_1 + $.ED_slab_2 - $.rebate - $.rebate_on_ebill), 2)"
           },
           {
             "id": "10d5b042-5598-4b7e-a8e4-3b5d4383917d",
             "key": "final_bill_amount",
-            "value": "round($.fixed_charges_per_day + $.total_energy_charges + $.total_Differential_ECR + $.total_MVCA + $.total_ED_Duty_in_RS_slab_1 + $.total_ED_Duty_in_RS_slab_2 - $.total_rebate_in_RS - $.total_Ebill_Opted, 2)"
+            "value": "round($.fixed_charges_per_day + $.energy_charge + $.differential_ECR + $.MVCA + $.ED_slab_1 + $.ED_slab_2 - $.rebate - $.rebate_on_ebill, 2)"
           }
         ],
         "passThrough": true,
@@ -169,7 +164,7 @@
           {
             "id": "bb9aeabf-6f47-49d7-902e-7158079b6895",
             "name": "Input",
-            "field": "Cumulative_Consumption_units"
+            "field": "cumulative_units_consumption"
           }
         ],
         "outputs": [

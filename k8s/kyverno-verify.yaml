@@ -1,12 +1,12 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: verify-energy-tariff-engine-signature
+  name: priceline-server
 spec:
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   background: false
   rules:
-    - name: verify-energy-tariff-engine
+    - name: priceline-server
       match:
         any:
           - resources:
@@ -14,12 +14,12 @@ spec:
                 - Deployment
       verifyImages:
         - imageReferences:
-            - "energy-tariff-engine:*"
+            - "priceline-server:*"
           attestors:
             - entries:
                 - keys:
                     publicKeys: |
                       -----BEGIN PUBLIC KEY-----
-                      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmGzjpvvrhATPKeuTOGmODG2AROuj
-                      ucBTJPbsQYsYBKz07tQIja1Tzdvn/6aUZqU/v5qsg6B1Gpau8vhyt7orZw==
+                      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDM/PZvHJbzu7VjBLhL+HIB5XTFO2
+                      q7RvKU9v7FqV1tz/iw0BDaK9mQR5DidM4BIjUsgUyyM4pSX2S3X71dXvtQ==
                       -----END PUBLIC KEY-----

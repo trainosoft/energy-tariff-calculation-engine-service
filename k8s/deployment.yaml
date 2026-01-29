@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: energy-tariff-engine
+  name: priceline-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: energy-tariff-engine
+      app: priceline-server
   template:
     metadata:
       labels:
-        app: energy-tariff-engine
+        app: priceline-server
     spec:
       containers:
-        - name: energy-tariff-engine
-          image: rutusoft123/energy-tariff-engine:1.2
+        - name: priceline-server
+          image: rutusoft/priceline-server:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8001

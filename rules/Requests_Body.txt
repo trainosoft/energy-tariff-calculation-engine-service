@@ -3,27 +3,28 @@ Tariff JK LT Domestic
 Requests Body
 {
   "consumption_unit":44.99,
-  "Opening_Balance":0,
-  "Date":"2025-08-01"
+  "opening_balance":0,
+  "current_date":"2025-08-01"
 }
 
 Response
 {
-  Energy_charges: 4.3,
-  Energy_duty: 6,
-  FPPAS_charges: 0,
-  Fixed_charges: 75,
-  Opening_Balance: 0,
-  Rebate: 5,
-  Sanction_load: 5,
+  FPPAS: 0,
+  FPPAS_charge: 0,
   consumption_unit: 44.99,
+  current_date: '2025-08-01',
   days: 31,
+  energy_charge: 193.46,
+  energy_charge_per_unit: 4.3,
+  energy_duty: 11.61,
+  energy_duty_on_EC_FPPAS: 6,
   final_bill_amount: 197.82,
-  fixed_charges_per_day: 2.42,
-  total_FPPAS_charges: 0,
-  total_energy_charges: 193.46,
-  total_energy_duty: 11.61,
-  total_rebate: -9.67,
+  fixed_charge: 2.42,
+  fixed_charge_per_connection: 75,
+  opening_balance: 0,
+  rebate: -9.67,
+  rebate_on_energy_charge: 5,
+  sanction_load: 5,
   updated_opening_balance: -197.82,
 }
 
@@ -33,46 +34,46 @@ Tariff WB LT Domestic
 
 Requests Body
 {
-  "DVC_provide_ECR":46.8,
-  "DVC_provide_MVCA":0.05,
+  "diff_ECR_rate_per_100_units":46.8,
+  "MVCA_monthly_rate":0.05,
   "last_month_unit_consumption":48.368,
   "consumption_units":48.368,
-  "Opening_Balance":0,
-  "Cumulative_Consumption_units_raw":48.368,
-  "Voucher":0,
-  "Date":"2025-09-01"
+  "opening_balance":0,
+  "cumulative_units_consumption":48.37,
+  "voucher_amount":0,
+  "current_date":"2025-09-01"
 }
 
 
 Response
 {
-  Cumulative_Consumption_units: 48.37,
-  Cumulative_Consumption_units_raw: 48.368,
-  DVC_provide_ECR: 46.8,
-  DVC_provide_MVCA: 0.05,
-  Differential_ECR: 0.0156,
-  Energy_charges: 6.61,
-  Fixed_charges: 75,
-  MVCA: 0.001666667,
-  Opening_Balance: 0,
-  Rebate: 5,
-  Sanction_load: 5,
-  Voucher: 0,
+  ED_slab_1: 0,
+  ED_slab_2: 0,
+  MVCA: 0.08,
+  MVCA_monthly_rate: 0.05,
+  MVCA_rate_per_day: 0.001666667,
   consumption_units: 48.368,
+  cumulative_units_consumption: 48.37,
+  current_date: '2025-09-01',
   days: 30,
+  diff_ECR_rate_per_100_units: 46.8,
+  diff_ECR_rate_per_unit_per_day: 0.0156,
+  differential_ECR: 0.75,
+  energy_charge: 319.71,
+  energy_charge_per_unit: 6.61,
   final_bill_amount: 322.87,
+  fixed_charge_per_connection: 75,
   fixed_charges_per_day: 2.5,
   last_month_unit_consumption: 48.368,
+  opening_balance: 0,
+  rebate: 0,
+  rebate_on_ebill: 0.17,
+  rebate_on_ebill_per_month: 5,
+  sanction_load: 5,
   slab_1: 0,
   slab_2: 0,
-  total_Differential_ECR: 0.75,
-  total_ED_Duty_in_RS_slab_1: 0,
-  total_ED_Duty_in_RS_slab_2: 0,
-  total_Ebill_Opted: 0.17,
-  total_MVCA: 0.08,
-  total_energy_charges: 319.71,
-  total_rebate_in_RS: 0,
   updated_opening_balance: -322.87,
+  voucher_amount: 0,
 }
 
 
