@@ -15,7 +15,7 @@
     },
     {
       "id": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e",
-      "name": "All Charges",
+      "name": "Calculation parameters",
       "type": "expressionNode",
       "content": {
         "inputField": null,
@@ -52,19 +52,29 @@
             "value": "6"
           },
           {
-            "id": "3d5cec68-c502-4967-840d-cc50e17eabb9",
-            "key": "50%_of_contract_demand",
-            "value": "4.25"
+            "id": "fde616e1-bba7-4599-9a4b-67cbff97ee1b",
+            "key": "power_factor",
+            "value": "0.85"
           },
           {
             "id": "e8460be2-06f1-4cbb-9a94-b75b643aa807",
             "key": "contract_demand",
-            "value": "8.50"
+            "value": "$.sanction_load * $.power_factor"
+          },
+          {
+            "id": "3d5cec68-c502-4967-840d-cc50e17eabb9",
+            "key": "contract_demand_50_percent",
+            "value": "$.sanction_load * 0.50 * $.power_factor"
           },
           {
             "id": "c1b95092-e2b4-4103-9d53-213a7edf9578",
-            "key": "100%_of_contract_demand",
-            "value": "9.35"
+            "key": "contract_demand_110_percent",
+            "value": "$.sanction_load * 1.10 * $.power_factor"
+          },
+          {
+            "id": "46b802b9-dc14-41b8-83b0-e8824f76f2d1",
+            "key": "contract_demand_min",
+            "value": "min([$.contract_demand, consumption_load])"
           }
         ],
         "passThrough": true,
@@ -98,17 +108,17 @@
           {
             "id": "6d63bb6d-e954-4032-ba99-86d11a794399",
             "key": "fixed_charge",
-            "value": "round(contract_demand_in_KW * (fixed_charge_per_connection/days), 4)"
+            "value": "round(contract_demand_min * (fixed_charge_per_connection/days), 4)"
           },
           {
             "id": "0e92c930-5e8d-49a4-bbe8-ac14c77a82ea",
             "key": "energy_charge",
-            "value": "round(consumption_unit * energy_charge_per_unit, 4)"
+            "value": "round(consumption_units * energy_charge_per_unit, 4)"
           },
           {
             "id": "b9adea42-9526-41be-9828-6f5b7d65f70f",
             "key": "FPPAS_charge",
-            "value": "round(last_month_unit_consumption * FPPAS, 4)"
+            "value": "round(last_month_consumption_units * FPPAS, 4)"
           },
           {
             "id": "f3d3417e-81fe-4286-9d3f-15ff54318128",
@@ -123,17 +133,17 @@
           {
             "id": "befbf535-e555-46a4-9187-90a2a33647b3",
             "key": "penalty_on_contract_demand",
-            "value": "round(penalty_rate_on_contract_demand * fixed_charge_per_connection * (contract_demand_in_KW - contract_demand), 4)"
+            "value": "round(penalty_rate_on_contract_demand * fixed_charge_per_connection * (consumption_load - contract_demand), 4)"
           },
           {
             "id": "5ed73c60-d751-48b4-b8fd-8ea325c4e765",
             "key": "update_opening_balance",
-            "value": "round(opening_balance - ($.fixed_charge + $.energy_charge + $.FPPAS_charge + $.energy_duty + $.rebate + $.penalty_on_contract_demand + difference), 2)"
+            "value": "round(opening_balance - ($.fixed_charge + $.energy_charge + $.FPPAS_charge + $.energy_duty + $.rebate + $.penalty_on_contract_demand), 2)"
           },
           {
             "id": "6bed860d-d6cd-4da4-80e7-d3020f885b85",
             "key": "final_bill_amount",
-            "value": "round($.fixed_charge + $.energy_charge + $.FPPAS_charge + $.energy_duty + $.rebate + $.penalty_on_contract_demand + difference, 2)"
+            "value": "round($.fixed_charge + $.energy_charge + $.FPPAS_charge + $.energy_duty + $.rebate + $.penalty_on_contract_demand, 2)"
           }
         ],
         "passThrough": true,
@@ -146,28 +156,28 @@
     },
     {
       "id": "5765d156-9333-4e06-a4c0-41ee33394f82",
-      "name": "Check Contract Demand",
+      "name": "Fetch penalty",
       "type": "decisionTableNode",
       "content": {
         "rules": [
           {
             "_id": "dff4ad80-7906-41ab-b082-0b30f174e245",
             "_description": "",
-            "19ad3814-2f31-42a2-af68-4339389bff51": "<9.35",
-            "0c89188b-5b72-435f-9169-77e00a3b3aef": "0"
+            "0c89188b-5b72-435f-9169-77e00a3b3aef": "0",
+            "19ad3814-2f31-42a2-af68-4339389bff51": "< contract_demand_110_percent"
           },
           {
             "_id": "828afec1-c082-48d7-b1e9-16caffd83897",
             "_description": "",
-            "19ad3814-2f31-42a2-af68-4339389bff51": ">=9.35",
-            "0c89188b-5b72-435f-9169-77e00a3b3aef": "1"
+            "0c89188b-5b72-435f-9169-77e00a3b3aef": "1.5",
+            "19ad3814-2f31-42a2-af68-4339389bff51": ">= contract_demand_110_percent"
           }
         ],
         "inputs": [
           {
             "id": "19ad3814-2f31-42a2-af68-4339389bff51",
             "name": "Input",
-            "field": "contract_demand_in_KW"
+            "field": "consumption_load"
           }
         ],
         "outputs": [

@@ -82,39 +82,45 @@ Tariff JK LT Commercial
 
 Requests Body
 {
-  "last_month_unit_consumption":41.50,
-  "consumption_unit":45.00,
-  "Contract_Demand_in_kW":1.875,
-  "Date":"2025-08-01",
-  "Opening_Balance":0,
-  "difference":32.06
+  "last_month_consumption_units":78.50,
+  "consumption_units":82.00,
+  "consumption_load":11.67,
+  "current_date":"2025-08-01",
+  "opening_balance":-1704.09
 }
 
 
 Response
 {
-  '100%_of_Contract_Demand': 9.35,
-  '50%_of_Contract_Demand': 4.25,
-  Contract_Demand: 8.5,
-  Contract_Demand_in_kW: 1.875,
-  Energy_charges: 4.3,
-  Energy_duty: 6,
-  FPPAS_charges: 0.66,
-  Fixed_charges: 150,
-  Opening_Balance: 0,
-  Penalty: 0,
-  Rebate: 3,
-  Sanction_load: 10,
-  consumption_unit: 45,
+  FPPAS: 0.66,
+  FPPAS_charge: 51.81,
+  consumption_load: 11.67,
+  consumption_units: 82,
+  contract_demand: 8.5,
+  contract_demand_110_percent: 9.35,
+  contract_demand_50_percent: 4.25,
+  contract_demand_min: 8.5,
+  current_date: '2025-08-01',
   days: 31,
-  difference: 32.06,
-  final_bill_amount: 269.46,
-  fixed_charges_per_day: 9.07,
-  last_month_unit_consumption: 41.5,
-  total_FPPAS_charges: 27.39,
-  total_Penalty: 0,
-  total_energy_charges: 193.5,
-  total_energy_duty: 13.25,
-  total_rebate: -5.81,
-  update_opening_balance: -269.46,
+  energy_charge: 352.6,
+  energy_charge_per_unit: 4.3,
+  energy_duty: 24.2646,
+  energy_duty_on_EC_FPPAS: 6,
+  final_bill_amount: 1172.48,
+  fixed_charge: 41.129,
+  fixed_charge_per_connection: 150,
+  last_month_consumption_units: 78.5,
+  opening_balance: -1704.09,
+  penalty_on_contract_demand: 713.25,
+  penalty_rate_on_contract_demand: 1.5,
+  power_factor: 0.85,
+  rebate: -10.578,
+  rebate_on_energy_charge: 3,
+  sanction_load: 10,
+  update_opening_balance: -2876.57,
 }
+
+
+Tariff JK LT Commercial EOM
+
+
