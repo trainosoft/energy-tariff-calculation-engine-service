@@ -1,0 +1,188 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "id": "c0b5ef60-5865-4810-a06a-08e7bedd229f",
+      "name": "request",
+      "type": "inputNode",
+      "content": {
+        "schema": ""
+      },
+      "position": {
+        "x": 110,
+        "y": -32
+      }
+    },
+    {
+      "id": "d47bb447-9d08-4d9c-af72-7cb9e22e36b3",
+      "name": "calculate days per month",
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const { Contract_load_normal_time, Contract_load_peak_time, Contract_load_off_peak_time, Date: inputDate } = input;\r\n\r\n  const date = new Date(inputDate);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1;\r\n\r\n  let days;\r\n  if (month === 2) {\r\n    days = (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) ? 29 : 28;\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  // ---- find max + key ----\r\n  let maxKey = \"Contract_load_normal_time\";\r\n  let maxValue = Contract_load_normal_time;\r\n\r\n  if (Contract_load_peak_time > maxValue) {\r\n    maxKey = \"Contract_load_peak_time\";\r\n    maxValue = Contract_load_peak_time;\r\n  }\r\n  if (Contract_load_off_peak_time > maxValue) {\r\n    maxKey = \"Contract_load_off_peak_time\";\r\n    maxValue = Contract_load_off_peak_time;\r\n  }\r\n\r\n  // ---- dynamic output ----\r\n  return {\r\n    days,\r\n    [maxKey]: maxValue,\r\n    maxload:maxValue,\r\n    last_month_unit_consumption: input.last_month_unit_consumption,\r\n    consumption_unit_normal_time: input.consumption_unit_normal_time,\r\n    consumption_unit_peak_time: input.consumption_unit_peak_time,\r\n    consumption_unit_off_peak_time: input.consumption_unit_off_peak_time,\r\n    Voucher: input.Voucher,\r\n    Opening_Balance: input.Opening_Balance,\r\n  };\r\n};\r\n"
+      },
+      "position": {
+        "x": 430,
+        "y": -32
+      }
+    },
+    {
+      "id": "369572e2-5f8d-4e7a-bba0-c96c4a6112f0",
+      "name": "All Charges",
+      "type": "expressionNode",
+      "content": {
+        "inputField": null,
+        "outputPath": null,
+        "expressions": [
+          {
+            "id": "4c5fb407-f8fd-4d34-8bea-929ec9798419",
+            "key": "Sanction_load",
+            "value": "10.0"
+          },
+          {
+            "id": "2e7bb13d-a34c-4883-81d7-b92dde4a5b3b",
+            "key": "Fixed_charges",
+            "value": "30"
+          },
+          {
+            "id": "ece45d20-dd99-43d3-aba6-9fad083ee7df",
+            "key": "Energy_charges_normal_time",
+            "value": "6.66"
+          },
+          {
+            "id": "6cd2c088-3117-42c6-a9b0-656b43e09f64",
+            "key": "Energy_charges_peak_time",
+            "value": "7.34"
+          },
+          {
+            "id": "b88188dc-d66f-419a-99c0-8894cf084334",
+            "key": "Energy_charges_off_peak_time",
+            "value": "5.59"
+          },
+          {
+            "id": "12981c00-9c40-4989-9339-2393c9944534",
+            "key": "Differential_ECR",
+            "value": "0.485"
+          },
+          {
+            "id": "70f602ea-80c5-4ab0-86c1-8cf68fa0e515",
+            "key": "MVCA",
+            "value": "0.05"
+          },
+          {
+            "id": "a0536fd7-dc0c-49d0-90b6-c76bf63a0bec",
+            "key": "Rebate",
+            "value": "5"
+          },
+          {
+            "id": "721bbf5f-a183-49f1-8bfa-46a9865eda13",
+            "key": "Number_of_hours",
+            "value": "days*24"
+          },
+          {
+            "id": "621a4be5-d778-4f80-b8fe-afc69bf987ac",
+            "key": "Load_shedding_hours",
+            "value": "3"
+          },
+          {
+            "id": "790b419e-eeae-42e7-81df-789ce3890f19",
+            "key": "Remaining_hours",
+            "value": "$.Number_of_hours-$.Load_shedding_hours"
+          },
+          {
+            "id": "ac404d81-c340-4ea1-b460-4b83f4ce59ec",
+            "key": "85%_of_Contract_demand",
+            "value": "8.5000"
+          },
+          {
+            "id": "3454e243-07e0-449b-8223-7df074d59193",
+            "key": "Contract_demand",
+            "value": "10.0000"
+          },
+          {
+            "id": "062f6d83-874b-4962-943a-f4f630a19f5e",
+            "key": "last_month_unit_consumption_per_day",
+            "value": "round(last_month_unit_consumption/days, 2)"
+          }
+        ],
+        "passThrough": true,
+        "executionMode": "single"
+      },
+      "position": {
+        "x": 750,
+        "y": -32
+      }
+    },
+    {
+      "id": "dc74168a-1f7c-47ca-8798-90a92580e574",
+      "name": "Bill calculation",
+      "type": "expressionNode",
+      "content": {
+        "inputField": null,
+        "outputPath": null,
+        "expressions": [
+          {
+            "id": "ea02229d-64b5-4316-9253-32037fe84706",
+            "key": "total_fixed_charges",
+            "value": "round(((Fixed_charges*Remaining_hours*maxload)/Number_of_hours)/days, 3)"
+          },
+          {
+            "id": "3f7c1fd3-5fb0-4ae3-a0b6-c811a97c239b",
+            "key": "total_energy_charges",
+            "value": "round(consumption_unit_normal_time + consumption_unit_peak_time + consumption_unit_off_peak_time, 2)"
+          },
+          {
+            "id": "49e85551-15e1-44c6-a28f-9c74dbf38686",
+            "key": "total_differential_ECR",
+            "value": "round(last_month_unit_consumption_per_day*Differential_ECR, 2)"
+          },
+          {
+            "id": "b0cf823b-e7de-4575-8850-e1d1970b0538",
+            "key": "total_MVCA",
+            "value": "round(last_month_unit_consumption_per_day*MVCA, 2)"
+          },
+          {
+            "id": "63a37439-5192-49ba-8537-87c4e2490574",
+            "key": "total_rebate_in_RS",
+            "value": "round(Voucher*(100+1)/100, 2)"
+          },
+          {
+            "id": "d1df7a52-dd5e-4094-89ee-dd6bc0b640d6",
+            "key": "total_Ebill_Opted",
+            "value": "round(Rebate/days, 2)"
+          },
+          {
+            "id": "c2910c08-6a6a-4bf1-bef0-17f06a3598ea",
+            "key": "total_bill",
+            "value": "round(Opening_Balance-($.total_fixed_charges + $.total_energy_charges + $.total_differential_ECR + $.total_MVCA + $.total_rebate_in_RS + $.total_Ebill_Opted), 2)"
+          }
+        ],
+        "passThrough": true,
+        "executionMode": "single"
+      },
+      "position": {
+        "x": 1070,
+        "y": -32
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1a1194e8-7d9b-4037-9cb5-08780cc9d647",
+      "type": "edge",
+      "sourceId": "c0b5ef60-5865-4810-a06a-08e7bedd229f",
+      "targetId": "d47bb447-9d08-4d9c-af72-7cb9e22e36b3"
+    },
+    {
+      "id": "c3fcdea9-7969-4bb6-97c0-f2499bf73abf",
+      "type": "edge",
+      "sourceId": "d47bb447-9d08-4d9c-af72-7cb9e22e36b3",
+      "targetId": "369572e2-5f8d-4e7a-bba0-c96c4a6112f0"
+    },
+    {
+      "id": "aeafa792-ca9e-4129-814c-91a6096fa909",
+      "type": "edge",
+      "sourceId": "369572e2-5f8d-4e7a-bba0-c96c4a6112f0",
+      "targetId": "dc74168a-1f7c-47ca-8798-90a92580e574"
+    }
+  ]
+}
