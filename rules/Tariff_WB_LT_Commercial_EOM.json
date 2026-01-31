@@ -2,32 +2,36 @@
   "contentType": "application/vnd.gorules.decision",
   "nodes": [
     {
+      "id": "b078b92a-1fcf-4b63-89d1-d739b67a38b2",
+      "name": "request",
       "type": "inputNode",
       "content": {
         "schema": ""
       },
-      "id": "b078b92a-1fcf-4b63-89d1-d739b67a38b2",
-      "name": "request",
       "position": {
         "x": 110,
         "y": 113.5
       }
     },
     {
+      "id": "15a6cd3e-9217-4643-a1d6-74914a006326",
+      "name": "calculate days per month",
       "type": "functionNode",
       "content": {
         "source": "import zen from 'zen';\n\n/** @type {Handler} **/\nexport const handler = async (input) => {\n  const { consumption_max_load_normal_time_monthly, consumption_max_load_peak_time_monthly, consumption_max_load_off_peak_time_monthly, current_date } = input;\n\n  const date = new Date(current_date);\n  const year = date.getFullYear();\n  const month = date.getMonth() + 1;\n\n  let days;\n  if (month === 2) {\n    days = (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) ? 29 : 28;\n  } else if ([4, 6, 9, 11].includes(month)) {\n    days = 30;\n  } else {\n    days = 31;\n  }\n\n  // ---- find max + key ----\n  let maxKey = \"consumption_max_load_normal_time_monthly\";\n  let maxValue = consumption_max_load_normal_time_monthly;\n\n  if (consumption_max_load_peak_time_monthly > maxValue) {\n    maxKey = \"consumption_max_load_peak_time_monthly\";\n    maxValue = consumption_max_load_peak_time_monthly;\n  }\n  if (consumption_max_load_off_peak_time_monthly > maxValue) {\n    maxKey = \"consumption_max_load_off_peak_time_monthly\";\n    maxValue = consumption_max_load_off_peak_time_monthly;\n  }\n\n  // ---- dynamic output ----\n  return {\n    ...input,\n    days,\n    [maxKey]: maxValue,\n    contract_demand_max: maxValue\n  };\n};\n"
       },
-      "id": "15a6cd3e-9217-4643-a1d6-74914a006326",
-      "name": "calculate days per month",
       "position": {
         "x": 430,
         "y": 113.5
       }
     },
     {
+      "id": "e49dc7ee-5658-4bf1-85cc-1ddb86e1ab25",
+      "name": "Calculation parameters",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "51e5240d-a086-40b1-a485-956dd5faa3d4",
@@ -131,21 +135,18 @@
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "e49dc7ee-5658-4bf1-85cc-1ddb86e1ab25",
-      "name": "Calculation parameters",
       "position": {
         "x": 750,
         "y": 113.5
       }
     },
     {
+      "id": "92926652-dbfc-45ec-bf28-6e3793910671",
+      "name": "Fetch penalty contract_demand off peak time",
       "type": "decisionTableNode",
       "content": {
-        "hitPolicy": "first",
         "rules": [
           {
             "_id": "f555882a-4968-43b5-a0fd-e20fb1a466b3",
@@ -213,21 +214,24 @@
             "field": "penalty_rate_on_contract_demand_off_peak_time_case_3c"
           }
         ],
-        "passThrough": true,
+        "hitPolicy": "first",
         "inputField": null,
         "outputPath": null,
+        "passThrough": true,
         "executionMode": "single"
       },
-      "id": "92926652-dbfc-45ec-bf28-6e3793910671",
-      "name": "Fetch penalty contract_demand off peak time",
       "position": {
         "x": 1070,
         "y": 113.5
       }
     },
     {
+      "id": "8d83dff6-ccd9-4530-ad44-755e5ea0ba7b",
+      "name": "Addl MD calcutation",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "7b04bcef-aa35-41f1-b43b-daeed4dd999c",
@@ -276,21 +280,18 @@
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "8d83dff6-ccd9-4530-ad44-755e5ea0ba7b",
-      "name": "Addl MD calcutation",
       "position": {
         "x": 1390,
         "y": 113.5
       }
     },
     {
+      "id": "97e31e92-c6b7-484c-a24a-4b0b9c138971",
+      "name": "Fetch penalty energy duty",
       "type": "decisionTableNode",
       "content": {
-        "hitPolicy": "first",
         "rules": [
           {
             "_id": "a6fe03c3-d418-4202-bdc9-98565e06a5ff",
@@ -358,21 +359,24 @@
             "field": "units_slab_4"
           }
         ],
-        "passThrough": true,
+        "hitPolicy": "first",
         "inputField": null,
         "outputPath": null,
+        "passThrough": true,
         "executionMode": "single"
       },
-      "id": "97e31e92-c6b7-484c-a24a-4b0b9c138971",
-      "name": "Fetch penalty energy duty",
       "position": {
         "x": 1710,
         "y": 113.5
       }
     },
     {
+      "id": "37fc3ead-78c7-4c7d-9dd6-c444546b9e64",
+      "name": "Energy duty calculation",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "f9931435-87e2-47c3-9857-9f5e830c24d2",
@@ -426,20 +430,20 @@
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "37fc3ead-78c7-4c7d-9dd6-c444546b9e64",
-      "name": "Energy duty calculation",
       "position": {
         "x": 2030,
         "y": 113.5
       }
     },
     {
+      "id": "226b6037-1593-46d2-acdf-dafa7c74c55a",
+      "name": "Bill Calculation",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "971e55b6-4694-4bba-88ed-940dd061af2c",
@@ -454,7 +458,7 @@
           {
             "id": "54af79ee-3f39-4772-9dfa-0fba3ce1e1e4",
             "key": "total_EOM_reconcille",
-            "value": "round($.EOM_fixed_charges + total_energy_duty + net_additional_demand_charge)"
+            "value": "round($.EOM_fixed_charges + total_energy_duty + net_additional_demand_charge, 2)"
           },
           {
             "id": "5c925503-80a1-45fe-bdf8-bfc5b972b643",
@@ -463,12 +467,8 @@
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "226b6037-1593-46d2-acdf-dafa7c74c55a",
-      "name": "Bill Calculation",
       "position": {
         "x": 2350,
         "y": 113.5
@@ -478,45 +478,45 @@
   "edges": [
     {
       "id": "4aa41d87-0de2-43c1-8114-f443b8fa31c5",
+      "type": "edge",
       "sourceId": "b078b92a-1fcf-4b63-89d1-d739b67a38b2",
-      "targetId": "15a6cd3e-9217-4643-a1d6-74914a006326",
-      "type": "edge"
+      "targetId": "15a6cd3e-9217-4643-a1d6-74914a006326"
     },
     {
       "id": "d4fcb409-0395-4772-b9c0-5787d85e31ea",
+      "type": "edge",
       "sourceId": "15a6cd3e-9217-4643-a1d6-74914a006326",
-      "targetId": "e49dc7ee-5658-4bf1-85cc-1ddb86e1ab25",
-      "type": "edge"
+      "targetId": "e49dc7ee-5658-4bf1-85cc-1ddb86e1ab25"
     },
     {
       "id": "e301bf42-165a-4548-a685-a80f554d743b",
+      "type": "edge",
       "sourceId": "e49dc7ee-5658-4bf1-85cc-1ddb86e1ab25",
-      "targetId": "92926652-dbfc-45ec-bf28-6e3793910671",
-      "type": "edge"
+      "targetId": "92926652-dbfc-45ec-bf28-6e3793910671"
     },
     {
       "id": "29c03e35-f5a1-4dcd-a3da-58b97320656e",
+      "type": "edge",
       "sourceId": "92926652-dbfc-45ec-bf28-6e3793910671",
-      "targetId": "8d83dff6-ccd9-4530-ad44-755e5ea0ba7b",
-      "type": "edge"
+      "targetId": "8d83dff6-ccd9-4530-ad44-755e5ea0ba7b"
     },
     {
       "id": "00f561a0-77c9-412e-a9f3-fe480af0a9c3",
+      "type": "edge",
       "sourceId": "8d83dff6-ccd9-4530-ad44-755e5ea0ba7b",
-      "targetId": "97e31e92-c6b7-484c-a24a-4b0b9c138971",
-      "type": "edge"
+      "targetId": "97e31e92-c6b7-484c-a24a-4b0b9c138971"
     },
     {
       "id": "1138d6b8-762a-4b89-a682-d24e4996e216",
+      "type": "edge",
       "sourceId": "97e31e92-c6b7-484c-a24a-4b0b9c138971",
-      "targetId": "37fc3ead-78c7-4c7d-9dd6-c444546b9e64",
-      "type": "edge"
+      "targetId": "37fc3ead-78c7-4c7d-9dd6-c444546b9e64"
     },
     {
       "id": "b664c92e-eac1-4df2-a415-b82aa0cbed22",
+      "type": "edge",
       "sourceId": "37fc3ead-78c7-4c7d-9dd6-c444546b9e64",
-      "targetId": "226b6037-1593-46d2-acdf-dafa7c74c55a",
-      "type": "edge"
+      "targetId": "226b6037-1593-46d2-acdf-dafa7c74c55a"
     }
   ]
 }
