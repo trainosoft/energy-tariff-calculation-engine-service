@@ -1,0 +1,143 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "type": "inputNode",
+      "content": {
+        "schema": ""
+      },
+      "id": "b04880a1-52de-40ac-9e26-ad103c955e58",
+      "name": "request",
+      "position": {
+        "x": 110,
+        "y": 114
+      }
+    },
+    {
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const installation_date = new Date(input.installation_date);\r\n  const date = new Date(input.current_date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  const installation_only_date = installation_date.getDate();\r\n  const installation_month_year = String(installation_date.getMonth() + 1).padStart(2, '0') + \"-\" + installation_date.getFullYear();\r\n  const current_month_year = String(date.getMonth() + 1).padStart(2, '0') + \"-\" + date.getFullYear();\r\n\r\n  return {\r\n    ...input,\r\n    days,\r\n    installation_only_date,\r\n    installation_month_year,\r\n    current_month_year\r\n  };\r\n};\r\n"
+      },
+      "id": "b61499ca-d0ba-4443-9691-be8838295e7e",
+      "name": "calculate days per month",
+      "position": {
+        "x": 430,
+        "y": 114
+      }
+    },
+    {
+      "type": "expressionNode",
+      "content": {
+        "expressions": [
+          {
+            "id": "52eb882c-4088-47fd-8838-2aea2da5a2c8",
+            "key": "max_contracted_load",
+            "value": "max([max_contracted_load_month, pervious_contracted_load])"
+          },
+          {
+            "id": "da84ac4c-a5da-4338-ab9c-183d973ee5c1",
+            "key": "bill_days",
+            "value": "current_month_year == installation_month_year ? days - installation_only_date + 1  : days"
+          },
+          {
+            "id": "4ef49f73-8081-452b-8e9e-aaa305e7d5ca",
+            "key": "demand_charge_per_month_per_kVA",
+            "value": "80"
+          },
+          {
+            "id": "994e41f0-f27e-450b-a22d-dd683da8845e",
+            "key": "bill_factor",
+            "value": "round(round($.bill_days/days, 5), 4)"
+          },
+          {
+            "id": "ba545d1d-3fa7-4cb0-8e56-4c0bc8760a95",
+            "key": "existing_demand_charge",
+            "value": "round($.demand_charge_per_month_per_kVA * $.max_contracted_load ,2)"
+          },
+          {
+            "id": "aabc01d1-79a5-4672-af23-8444abb16170",
+            "key": "adjusted_fixed_charges_for_month",
+            "value": "round($.existing_demand_charge * $.bill_factor, 4)"
+          },
+          {
+            "id": "62739796-106b-4296-ab9b-1b3d4a942fe3",
+            "key": "daily_fixed_charges",
+            "value": "round($.adjusted_fixed_charges_for_month/$.bill_days, 4)"
+          },
+          {
+            "id": "3eaa06e8-128d-41f8-adaa-20f6ffcc831d",
+            "key": "surcharge_rate",
+            "value": "2"
+          }
+        ],
+        "passThrough": true,
+        "inputField": null,
+        "outputPath": null,
+        "executionMode": "single"
+      },
+      "id": "b6a07f22-7d1f-405f-b913-2dd77791dbed",
+      "name": "Calculation parameters",
+      "position": {
+        "x": 750,
+        "y": 114
+      }
+    },
+    {
+      "type": "expressionNode",
+      "content": {
+        "expressions": [
+          {
+            "id": "5371c1f3-0759-4e0e-a737-1fac2cdf6743",
+            "key": "update_demand_charges",
+            "value": "date(current_date) < date(installation_date) ? 0 : daily_fixed_charges"
+          },
+          {
+            "id": "e23301d4-d215-4c2b-90ec-65d11850ca59",
+            "key": "update_surcharge",
+            "value": "round(((pervious_electricity_charge + $.update_demand_charges) * surcharge_rate)/100, 4)"
+          },
+          {
+            "id": "14477118-52c8-4040-b622-f31728eadd43",
+            "key": "different_demand_charges",
+            "value": "$.update_demand_charges - pervious_demand_charges"
+          },
+          {
+            "id": "15339cbe-66c4-4ebf-a16e-4368364ed185",
+            "key": "different_surcharge",
+            "value": "$.update_surcharge - pervious_surcharge"
+          }
+        ],
+        "passThrough": true,
+        "inputField": null,
+        "outputPath": null,
+        "executionMode": "single"
+      },
+      "id": "483ac622-662e-4dab-b491-306c88a51696",
+      "name": "Bill Calculation",
+      "position": {
+        "x": 1070,
+        "y": 114
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "a2896173-bafc-4ede-bcea-29f1156b80ee",
+      "sourceId": "b04880a1-52de-40ac-9e26-ad103c955e58",
+      "targetId": "b61499ca-d0ba-4443-9691-be8838295e7e",
+      "type": "edge"
+    },
+    {
+      "id": "1f180d1b-83f8-464f-ab5c-498ba6a1f44d",
+      "sourceId": "b61499ca-d0ba-4443-9691-be8838295e7e",
+      "targetId": "b6a07f22-7d1f-405f-b913-2dd77791dbed",
+      "type": "edge"
+    },
+    {
+      "id": "b3656ccd-acef-4aa1-b96a-aa91f682f772",
+      "sourceId": "b6a07f22-7d1f-405f-b913-2dd77791dbed",
+      "targetId": "483ac622-662e-4dab-b491-306c88a51696",
+      "type": "edge"
+    }
+  ]
+}

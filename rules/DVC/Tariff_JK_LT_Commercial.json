@@ -1,0 +1,228 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "id": "71d70eb5-d338-4c85-9c3b-2da97bdcdc76",
+      "name": "request",
+      "type": "inputNode",
+      "content": {
+        "schema": ""
+      },
+      "position": {
+        "x": 20,
+        "y": 250
+      }
+    },
+    {
+      "id": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e",
+      "name": "Calculation parameters",
+      "type": "expressionNode",
+      "content": {
+        "inputField": null,
+        "outputPath": null,
+        "expressions": [
+          {
+            "id": "65234233-566b-40a4-8f45-d2bf349db992",
+            "key": "sanction_load",
+            "value": "10"
+          },
+          {
+            "id": "062f74b6-6898-40d6-b7d9-08c9f25140c8",
+            "key": "fixed_charge_per_connection",
+            "value": "150"
+          },
+          {
+            "id": "b700265a-baaa-4034-af0c-51562aeb547a",
+            "key": "energy_charge_per_unit",
+            "value": "4.3"
+          },
+          {
+            "id": "7cbac766-1de2-43b0-8b5a-6487c76ccbf7",
+            "key": "FPPAS",
+            "value": "0.66"
+          },
+          {
+            "id": "ab08b991-2c97-4cff-a52b-7187fb21a64e",
+            "key": "rebate_on_energy_charge",
+            "value": "3"
+          },
+          {
+            "id": "d37dcef1-74da-4bf1-9fd2-738212220559",
+            "key": "energy_duty_on_EC_FPPAS",
+            "value": "6"
+          },
+          {
+            "id": "fde616e1-bba7-4599-9a4b-67cbff97ee1b",
+            "key": "power_factor",
+            "value": "0.85"
+          },
+          {
+            "id": "e8460be2-06f1-4cbb-9a94-b75b643aa807",
+            "key": "contract_demand",
+            "value": "$.sanction_load * $.power_factor"
+          },
+          {
+            "id": "3d5cec68-c502-4967-840d-cc50e17eabb9",
+            "key": "contract_demand_50_percent",
+            "value": "$.sanction_load * 0.50 * $.power_factor"
+          },
+          {
+            "id": "c1b95092-e2b4-4103-9d53-213a7edf9578",
+            "key": "contract_demand_110_percent",
+            "value": "$.sanction_load * 1.10 * $.power_factor"
+          },
+          {
+            "id": "46b802b9-dc14-41b8-83b0-e8824f76f2d1",
+            "key": "contract_demand_min",
+            "value": "min([$.contract_demand, consumption_load])"
+          }
+        ],
+        "passThrough": true,
+        "executionMode": "single"
+      },
+      "position": {
+        "x": 600,
+        "y": 250
+      }
+    },
+    {
+      "id": "1d00827d-a59a-43b6-884a-d8b80034a798",
+      "name": "calculate days per month",
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.current_date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    ...input,\r\n    days\r\n  };\r\n};\r\n"
+      },
+      "position": {
+        "x": 295,
+        "y": 250
+      }
+    },
+    {
+      "id": "b3795dde-a737-442e-a001-ccc611f2ae49",
+      "name": "Bill calculation",
+      "type": "expressionNode",
+      "content": {
+        "inputField": null,
+        "outputPath": null,
+        "expressions": [
+          {
+            "id": "6d63bb6d-e954-4032-ba99-86d11a794399",
+            "key": "fixed_charge",
+            "value": "round(contract_demand_min * (fixed_charge_per_connection/days), 4)"
+          },
+          {
+            "id": "0e92c930-5e8d-49a4-bbe8-ac14c77a82ea",
+            "key": "energy_charge",
+            "value": "round(consumption_units * energy_charge_per_unit, 4)"
+          },
+          {
+            "id": "b9adea42-9526-41be-9828-6f5b7d65f70f",
+            "key": "FPPAS_charge",
+            "value": "round(last_month_consumption_units * FPPAS, 4)"
+          },
+          {
+            "id": "f3d3417e-81fe-4286-9d3f-15ff54318128",
+            "key": "energy_duty",
+            "value": "round(energy_duty_on_EC_FPPAS * ($.energy_charge + $.FPPAS_charge)/100, 4)"
+          },
+          {
+            "id": "f46a9759-af6a-4df2-b41f-e466cdd5db61",
+            "key": "rebate",
+            "value": "round((-$.energy_charge * rebate_on_energy_charge)/100, 4)"
+          },
+          {
+            "id": "befbf535-e555-46a4-9187-90a2a33647b3",
+            "key": "penalty_on_contract_demand",
+            "value": "round(penalty_rate_on_contract_demand * fixed_charge_per_connection * (consumption_load - contract_demand), 4)"
+          },
+          {
+            "id": "5ed73c60-d751-48b4-b8fd-8ea325c4e765",
+            "key": "update_opening_balance",
+            "value": "round(opening_balance - ($.fixed_charge + $.energy_charge + $.FPPAS_charge + $.energy_duty + $.rebate + $.penalty_on_contract_demand), 2)"
+          },
+          {
+            "id": "6bed860d-d6cd-4da4-80e7-d3020f885b85",
+            "key": "final_bill_amount",
+            "value": "round($.fixed_charge + $.energy_charge + $.FPPAS_charge + $.energy_duty + $.rebate + $.penalty_on_contract_demand, 2)"
+          }
+        ],
+        "passThrough": true,
+        "executionMode": "single"
+      },
+      "position": {
+        "x": 1170,
+        "y": 250
+      }
+    },
+    {
+      "id": "5765d156-9333-4e06-a4c0-41ee33394f82",
+      "name": "Fetch penalty",
+      "type": "decisionTableNode",
+      "content": {
+        "rules": [
+          {
+            "_id": "dff4ad80-7906-41ab-b082-0b30f174e245",
+            "_description": "",
+            "0c89188b-5b72-435f-9169-77e00a3b3aef": "0",
+            "19ad3814-2f31-42a2-af68-4339389bff51": "< contract_demand_110_percent"
+          },
+          {
+            "_id": "828afec1-c082-48d7-b1e9-16caffd83897",
+            "_description": "",
+            "0c89188b-5b72-435f-9169-77e00a3b3aef": "1.5",
+            "19ad3814-2f31-42a2-af68-4339389bff51": ">= contract_demand_110_percent"
+          }
+        ],
+        "inputs": [
+          {
+            "id": "19ad3814-2f31-42a2-af68-4339389bff51",
+            "name": "Input",
+            "field": "consumption_load"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "0c89188b-5b72-435f-9169-77e00a3b3aef",
+            "name": "Output",
+            "field": "penalty_rate_on_contract_demand"
+          }
+        ],
+        "hitPolicy": "first",
+        "inputField": null,
+        "outputPath": null,
+        "passThrough": true,
+        "executionMode": "single"
+      },
+      "position": {
+        "x": 895,
+        "y": 250
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "56fdadf6-cc06-4f71-b8f0-973aa8555543",
+      "type": "edge",
+      "sourceId": "71d70eb5-d338-4c85-9c3b-2da97bdcdc76",
+      "targetId": "1d00827d-a59a-43b6-884a-d8b80034a798"
+    },
+    {
+      "id": "a41e73e8-c380-4ddf-b813-51466b69a317",
+      "type": "edge",
+      "sourceId": "1d00827d-a59a-43b6-884a-d8b80034a798",
+      "targetId": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e"
+    },
+    {
+      "id": "a511c830-8af2-43f7-aa1e-51e41a80beb6",
+      "type": "edge",
+      "sourceId": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e",
+      "targetId": "5765d156-9333-4e06-a4c0-41ee33394f82"
+    },
+    {
+      "id": "e9491507-4c60-4806-8359-7fb207c01b5c",
+      "type": "edge",
+      "sourceId": "5765d156-9333-4e06-a4c0-41ee33394f82",
+      "targetId": "b3795dde-a737-442e-a001-ccc611f2ae49"
+    }
+  ]
+}

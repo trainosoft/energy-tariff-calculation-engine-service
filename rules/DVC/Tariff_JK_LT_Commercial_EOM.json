@@ -1,0 +1,98 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "type": "inputNode",
+      "content": {
+        "schema": ""
+      },
+      "id": "71d70eb5-d338-4c85-9c3b-2da97bdcdc76",
+      "name": "request",
+      "position": {
+        "x": 20,
+        "y": 250
+      }
+    },
+    {
+      "type": "expressionNode",
+      "content": {
+        "expressions": [
+          {
+            "id": "062f74b6-6898-40d6-b7d9-08c9f25140c8",
+            "key": "fixed_charge_per_connection",
+            "value": "150"
+          }
+        ],
+        "passThrough": true,
+        "inputField": null,
+        "outputPath": null,
+        "executionMode": "single"
+      },
+      "id": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e",
+      "name": "Calculation parameters",
+      "position": {
+        "x": 575,
+        "y": 250
+      }
+    },
+    {
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const date = new Date(input.current_date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  return {\r\n    ...input,\r\n    days\r\n  };\r\n};\r\n"
+      },
+      "id": "1d00827d-a59a-43b6-884a-d8b80034a798",
+      "name": "calculate days per month",
+      "position": {
+        "x": 295,
+        "y": 250
+      }
+    },
+    {
+      "type": "expressionNode",
+      "content": {
+        "expressions": [
+          {
+            "id": "46d34148-4d6b-4dec-88d7-d551622a2c09",
+            "key": "diff_consuption_load",
+            "value": "max_consumption_load - consumption_load"
+          },
+          {
+            "id": "4d8abc5c-ed97-4b00-afef-1c7e09bbd6a4",
+            "key": "updated_fixed_charge",
+            "value": "$.diff_consuption_load * (fixed_charge_per_connection / days)"
+          }
+        ],
+        "passThrough": true,
+        "inputField": null,
+        "outputPath": null,
+        "executionMode": "single"
+      },
+      "id": "8582e922-0dac-4d7e-ac5a-d5b4a8f6598c",
+      "name": "Bill calculation",
+      "position": {
+        "x": 860,
+        "y": 250
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "56fdadf6-cc06-4f71-b8f0-973aa8555543",
+      "sourceId": "71d70eb5-d338-4c85-9c3b-2da97bdcdc76",
+      "targetId": "1d00827d-a59a-43b6-884a-d8b80034a798",
+      "type": "edge"
+    },
+    {
+      "id": "a41e73e8-c380-4ddf-b813-51466b69a317",
+      "sourceId": "1d00827d-a59a-43b6-884a-d8b80034a798",
+      "targetId": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e",
+      "type": "edge"
+    },
+    {
+      "id": "50ed3799-6cb2-4183-bc2b-fdac6ac6db1f",
+      "sourceId": "3bdd0fdc-ad27-42ae-bb3d-c3e395f0bc6e",
+      "targetId": "8582e922-0dac-4d7e-ac5a-d5b4a8f6598c",
+      "type": "edge"
+    }
+  ]
+}
