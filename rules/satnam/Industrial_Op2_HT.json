@@ -2,32 +2,36 @@
   "contentType": "application/vnd.gorules.decision",
   "nodes": [
     {
+      "id": "0ba7a689-af3f-4051-a40a-398124857598",
+      "name": "request",
       "type": "inputNode",
       "content": {
         "schema": ""
       },
-      "id": "0ba7a689-af3f-4051-a40a-398124857598",
-      "name": "request",
       "position": {
         "x": 110,
         "y": 114
       }
     },
     {
+      "id": "84866c56-40a4-4cbc-8b2d-38ba6d398968",
+      "name": "calculate days per month",
       "type": "functionNode",
       "content": {
         "source": "import zen from 'zen';\r\n\r\n/** @type {Handler} **/\r\nexport const handler = async (input) => {\r\n  const installation_date = new Date(input.installation_date);\r\n  const date = new Date(input.current_date);\r\n  const year = date.getFullYear();\r\n  const month = date.getMonth() + 1; // JS months are 0-based\r\n\r\n  let days;\r\n\r\n  if (month === 2) {\r\n    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {\r\n      days = 29;\r\n    } else {\r\n      days = 28;\r\n    }\r\n  } else if ([4, 6, 9, 11].includes(month)) {\r\n    days = 30;\r\n  } else {\r\n    days = 31;\r\n  }\r\n\r\n  const installation_only_date = installation_date.getDate();\r\n  const installation_month_year = String(installation_date.getMonth() + 1).padStart(2, '0') + \"-\" + installation_date.getFullYear();\r\n  const current_month_year = String(date.getMonth() + 1).padStart(2, '0') + \"-\" + date.getFullYear();\r\n\r\n  return {\r\n    ...input,\r\n    days,\r\n    installation_only_date,\r\n    installation_month_year,\r\n    current_month_year\r\n  };\r\n};\r\n"
       },
-      "id": "84866c56-40a4-4cbc-8b2d-38ba6d398968",
-      "name": "calculate days per month",
       "position": {
         "x": 430,
         "y": 114
       }
     },
     {
+      "id": "33ec1e42-93ad-4ce1-befc-8ead5d2bae5f",
+      "name": "Calculation parameters",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "7718b086-d216-47a2-8435-296c593580b6",
@@ -85,36 +89,51 @@
             "value": "0.99"
           },
           {
+            "id": "1c847d08-10cd-48aa-955d-298119522d0a",
+            "key": "consumed_units_normal_time",
+            "value": "current_reading_normal_time - previous_reading_normal_time"
+          },
+          {
+            "id": "5fdddba7-3d55-4c24-be96-387dce5eb51d",
+            "key": "consumed_units_peak_time",
+            "value": "current_reading_peak_time - previous_reading_peak_time"
+          },
+          {
+            "id": "853d57e0-507a-4df5-9923-3035cae53fc4",
+            "key": "consumed_units_off_peak_time",
+            "value": "current_reading_off_peak_time - previous_reading_off_peak_time"
+          },
+          {
             "id": "0812fe1f-c307-42d1-ba88-4474e0ed958e",
             "key": "update_consumed_units_normal_time",
-            "value": "round(consumed_units_normal_time/$.power_factor, 4)"
+            "value": "round($.consumed_units_normal_time/$.power_factor, 4)"
           },
           {
             "id": "51d1d963-e7e8-44d2-9a92-ae08cc58749c",
             "key": "update_consumed_units_peak_time",
-            "value": "round(consumed_units_peak_time/$.power_factor, 4)"
+            "value": "round($.consumed_units_peak_time/$.power_factor, 4)"
           },
           {
             "id": "3a3b4650-b227-42fb-a1ec-2b4c221b1f4e",
             "key": "update_consumed_units_off_peak_time",
-            "value": "round(consumed_units_off_peak_time/$.power_factor, 4)"
+            "value": "round($.consumed_units_off_peak_time/$.power_factor, 4)"
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "33ec1e42-93ad-4ce1-befc-8ead5d2bae5f",
-      "name": "Calculation parameters",
       "position": {
         "x": 750,
         "y": 114
       }
     },
     {
+      "id": "159a491c-deef-462a-8c01-e33389526497",
+      "name": "Bill Calculation",
       "type": "expressionNode",
       "content": {
+        "inputField": null,
+        "outputPath": null,
         "expressions": [
           {
             "id": "4ca9d33b-6785-49e5-8eb8-78e5b34e89e4",
@@ -163,12 +182,8 @@
           }
         ],
         "passThrough": true,
-        "inputField": null,
-        "outputPath": null,
         "executionMode": "single"
       },
-      "id": "159a491c-deef-462a-8c01-e33389526497",
-      "name": "Bill Calculation",
       "position": {
         "x": 1070,
         "y": 114
@@ -178,21 +193,21 @@
   "edges": [
     {
       "id": "b9cf5ade-3ff8-4e65-bb04-7a40a5626dac",
+      "type": "edge",
       "sourceId": "0ba7a689-af3f-4051-a40a-398124857598",
-      "targetId": "84866c56-40a4-4cbc-8b2d-38ba6d398968",
-      "type": "edge"
+      "targetId": "84866c56-40a4-4cbc-8b2d-38ba6d398968"
     },
     {
       "id": "7d6e6f63-14b0-46fb-8076-2c0b7e22e8d2",
+      "type": "edge",
       "sourceId": "84866c56-40a4-4cbc-8b2d-38ba6d398968",
-      "targetId": "33ec1e42-93ad-4ce1-befc-8ead5d2bae5f",
-      "type": "edge"
+      "targetId": "33ec1e42-93ad-4ce1-befc-8ead5d2bae5f"
     },
     {
       "id": "b1747d56-bb8f-4971-8a37-7e0562e13cb8",
+      "type": "edge",
       "sourceId": "33ec1e42-93ad-4ce1-befc-8ead5d2bae5f",
-      "targetId": "159a491c-deef-462a-8c01-e33389526497",
-      "type": "edge"
+      "targetId": "159a491c-deef-462a-8c01-e33389526497"
     }
   ]
 }
