@@ -25,17 +25,6 @@ D:\rutusoft\energy-tariff-calculation-engine-service>venv\Scripts\activate
 
 
 
-Opta
----------------------------
-D:\rutusoft\energy-tariff-calculation-engine-service>py --list
- -V:3.13 *        Python 3.13 (64-bit)
- -V:3.11          Python 3.11 (64-bit)
-
-D:\rutusoft\energy-tariff-calculation-engine-service>py -3.11 -m venv venv
-D:\rutusoft\energy-tariff-calculation-engine-service>venv\Scripts\activate
-(venv) D:\rutusoft\energy-tariff-calculation-engine-service>pip install -r requirements.txt
-(venv) D:\rutusoft\energy-tariff-calculation-engine-service>uvicorn main:app --reload
-
 Deploy on linux VM
 
 Login to VM:
