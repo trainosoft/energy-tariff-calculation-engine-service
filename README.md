@@ -537,3 +537,131 @@ Response:
 https://priceline-editor.replit.app/
 
 
+
+#Build, docker image and kubernates clusturing
+
+D:\Cuculus\energy-tariff-calculation-engine-service>python -m venv .venv
+D:\Cuculus\energy-tariff-calculation-engine-service>.venv\Scripts\activate
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>python.exe -m pip install --upgrade pip
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>pip install -U pip wheel
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>pip install -r requirements.txt
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>pip install -U nuitka
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>python -m nuitka --mode=standalone --assume-yes-for-downloads --output-dir=build main.py
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>docker build --no-cache -t priceline-server .
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>docker run -p 9001:8001 priceline-server
+
+Access swagger docs http://localhost:9001/docs#/
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>docker login
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>docker tag priceline-server:latest rutusoft/priceline-server:latest
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>docker push rutusoft/priceline-server:latest
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>docker inspect --format="{{index .RepoDigests 0}}" rutusoft/priceline-server:latest
+priceline-server@sha256:9b5913536a3a8ab1356758cefa265e03d369e355dbe609e4f630abeb9962851d
+
+Download cosign-windows-amd64.exe from	https://github.com/sigstore/cosign/releases and copy to energy-tariff-calculation-engine-service folder
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>cosign-windows-amd64 version
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>cosign-windows-amd64 generate-key-pair
+Enter password for private key: Priceline@2026
+Enter password for private key again:Priceline@2026
+Private key written to cosign.key
+Public key written to cosign.pub
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>cosign-windows-amd64 sign --key cosign.key docker.io/rutusoft/priceline-server@sha256:9b5913536a3a8ab1356758cefa265e03d369e355dbe609e4f630abeb9962851d
+Enter password for private key: Priceline@2026
+
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>cosign-windows-amd64 verify --key cosign.pub docker.io/rutusoft/priceline-server@sha256:9b5913536a3a8ab1356758cefa265e03d369e355dbe609e4f630abeb9962851d
+
+Verification for index.docker.io/rutusoft/priceline-server@sha256:9b5913536a3a8ab1356758cefa265e03d369e355dbe609e4f630abeb9962851d --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The signatures were verified against the specified public key
+
+[{"critical":{"identity":{"docker-reference":"index.docker.io/rutusoft/priceline-server@sha256:9b5913536a3a8ab1356758cefa265e03d369e355dbe609e4f630abeb9962851d"},"image":{"docker-manifest-digest":"sha256:9b5913536a3a8ab1356758cefa265e03d369e355dbe609e4f630abeb9962851d"},"type":"https://sigstore.dev/cosign/sign/v1"},"optional":{}}]
+
+
+Enable Kubernetes - Wait until cluster is successfully started.
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl create namespace priceline
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl create -f https://github.com/kyverno/kyverno/releases/latest/download/install.yaml
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl get pods -n kyverno
+NAME                                            READY   STATUS    RESTARTS   AGE
+kyverno-admission-controller-854dbd97f5-zklm6   1/1     Running   3          10d
+kyverno-background-controller-b5bbc48dc-httpd   1/1     Running   3          10d
+kyverno-cleanup-controller-5db46b8956-79hhm     1/1     Running   3          10d
+kyverno-reports-controller-7f9759846-gmb6h      1/1     Running   3          10d
+
+Update public key in k8s/kyverno-verify.yaml(Copy public key from cosign.pub)
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl apply -f k8s/kyverno-verify.yaml
+clusterpolicy.kyverno.io/priceline-server configured
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl get clusterpolicy
+NAME               ADMISSION   BACKGROUND   READY   AGE   MESSAGE
+priceline-server   true        false        True    10d   Ready
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl apply -f k8s/deployment.yaml
+deployment.apps/priceline-server unchanged
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+priceline-server-6f86cf655d-279pf   1/1     Running   3          10d
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl run test --image=nginx
+Error from server (AlreadyExists): pods "test" already exists
+
+(.venv) D:\Cuculus\energy-tariff-calculation-engine-service>kubectl port-forward pod/priceline-server-6f86cf655d-279pf 9001:9001
+Forwarding from 127.0.0.1:9001 -> 9001
+
+
+curl --location 'http://localhost:9001/calculate-tarrif/evaluate?decision_table_key=MIZO-FY-24-25.json' \
+--header 'Content-Type: application/json' \
+--data '{
+  "category":"Domestic",
+  "subcategory":"HT",
+  "units_consumed":528,
+  "contracted_load":10.000,
+  "connected_load":10.000,
+  "days":23,
+  "meter_rent":0.00,
+  "adjustment":-0.93
+}'
+
+
+Response:
+{
+    "performance": "3.8ms",
+    "result": {
+        "adjustment": -0.93,
+        "arrears": 0,
+        "category": "Domestic",
+        "connected_load": 10,
+        "contracted_load": 10,
+        "days": 23,
+        "fix_charge_rate_per_kw_per_month": 50,
+        "meter_rent": 0,
+        "pf_rebate": 0,
+        "pole_usage_charge": 0,
+        "rate_per_unit": 10.6,
+        "rebate": 0,
+        "subcategory": "HT",
+        "subsidized_fix_charge_rate_per_kw_per_month": 50,
+        "subsidized_rate_per_unit": 8.65,
+        "subsidy_on_energy_charge": -1029.6,
+        "surcharge": 0,
+        "surcharge_on_outstanding_principal": 98.99,
+        "total_bill_amount_payable": 4949.6,
+        "total_bill_amount_payable_after_due_date": 5048.59,
+        "total_energry_charge": 5596.8,
+        "total_fix_charge": 383.33,
+        "total_subsidized_energry_charge": 4567.2,
+        "units_consumed": 528
+    }
+}
