@@ -1,0 +1,956 @@
+{
+  "info": {
+    "_postman_id": "9cf0027c-460e-4ce6-ad17-081eecdfc087",
+    "name": "satnam",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48076597",
+    "_collection_link": "https://go.postman.co/collection/48076597-9cf0027c-460e-4ce6-ad17-081eecdfc087?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Kutir Jyoti LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":0.5,\r\n  \"opening_balance\":0,\r\n  \"previous_reading\":0.20,\r\n  \"current_reading\":0.45,\r\n  \"closing_balance\":19.0685\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Kutir_Jyoti_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Kutir_Jyoti_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Domestic LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":4,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":5.60,\r\n  \"opening_balance\":600,\r\n  \"closing_balance\":0  \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Domestic_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Domestic_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "NonProfit Public LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":5,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":6.60,\r\n  \"opening_balance\":1000,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/NonProfit_Public_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/NonProfit_Public_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Commercial LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":5,\r\n  \"opening_balance\":2000,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":13.60,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Commercial_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Commercial_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Public Light LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":7.5,\r\n  \"opening_balance\":7500,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":39.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Public_Light_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Public_Light_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Public Water LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":7.5,\r\n  \"opening_balance\":12500,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":66.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Public_Water_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Public_Water_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Irrigation LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":4,\r\n  \"opening_balance\":1500,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":24.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Irrigation_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Irrigation_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Industrial LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":15,\r\n  \"opening_balance\":6000,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":40.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Industrial_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Industrial_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Electric Vehicle LT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load_KW\":5,\r\n  \"opening_balance\":2500,\r\n  \"previous_reading\":0.00,\r\n  \"current_reading\":17.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Electric_Vehicle_LT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Electric_Vehicle_LT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Domestic HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":10.00,\r\n  \"opening_balance\":10000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":70.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Domestic_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Domestic_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Domestic HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":10,\r\n  \"max_contracted_load_month\":18,\r\n  \"pervious_electricity_charge\":611.62,\r\n  \"pervious_demand_charges\":16.1306,\r\n  \"pervious_surcharge\":12.5549\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Domestic_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Domestic_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "NonProfit Public HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":40.00,\r\n  \"opening_balance\":50000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":390.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/NonProfit_Public_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/NonProfit_Public_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "NonProfit Public HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":40,\r\n  \"max_contracted_load_month\":45,\r\n  \"pervious_electricity_charge\":3446.97,\r\n  \"pervious_demand_charges\":77.4267,\r\n  \"pervious_surcharge\":70.4879\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/NonProfit_Public_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/NonProfit_Public_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Commercial HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":50.00,\r\n  \"opening_balance\":170000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":1140.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Commercial_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Commercial_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Commercial HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":50,\r\n  \"max_contracted_load_month\":55,\r\n  \"pervious_electricity_charge\":10248.48,\r\n  \"pervious_demand_charges\":129.0445,\r\n  \"pervious_surcharge\":207.5505\r\n}       ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Commercial_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Commercial_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Public Water HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":60.00,\r\n  \"opening_balance\":300000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":1620.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Public_Water_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Public_Water_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Public Water HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":60,\r\n  \"max_contracted_load_month\":68,\r\n  \"pervious_electricity_charge\":16118.18,\r\n  \"pervious_demand_charges\":174.2100,\r\n  \"pervious_surcharge\":325.8478\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Public_Water_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Public_Water_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Irrigation HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":25.00,\r\n  \"opening_balance\":20000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":295.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Irrigation_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Irrigation_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Irrigation HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":25,\r\n  \"max_contracted_load_month\":35,\r\n  \"pervious_electricity_charge\":1147.22,\r\n  \"pervious_demand_charges\":40.3264,\r\n  \"pervious_surcharge\":23.7509\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Irrigation_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Irrigation_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Industrial-Op1 HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":100.00,\r\n  \"opening_balance\":250000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":1620.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Industrial_Op1_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Industrial_Op1_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Industrial-Op1 HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":100,\r\n  \"max_contracted_load_month\":120,\r\n  \"pervious_electricity_charge\":14809.09,\r\n  \"pervious_demand_charges\":258.0889,\r\n  \"pervious_surcharge\":301.3435\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Industrial_Op1_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Industrial_Op1_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Industrial_Op2_HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":100.00,\r\n  \"opening_balance\":250000,\r\n  \"previous_reading_normal_time\":0,\r\n  \"current_reading_normal_time\":891.00,\r\n  \"previous_reading_peak_time\":0,\r\n  \"current_reading_peak_time\":324.00,\r\n  \"previous_reading_off_peak_time\":0,\r\n  \"current_reading_off_peak_time\":405.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Industrial_Op2_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Industrial_Op2_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Industrial Op2 HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":100,\r\n  \"max_contracted_load_month\":120,\r\n  \"pervious_gross_bill\":16580.8161,\r\n  \"pervious_demand_charges\":258.0889,\r\n  \"pervious_surcharge\":331.6163\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Industrial_Op2_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Industrial_Op2_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bulk Supply HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":400.00,\r\n  \"opening_balance\":1000000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":8100.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Bulk_Supply_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Bulk_Supply_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bulk Supply HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":400,\r\n  \"max_contracted_load_month\":450,\r\n  \"pervious_electricity_charge\":56045.45,\r\n  \"pervious_demand_charges\":1161.4000,\r\n  \"pervious_surcharge\":1144.1370\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Bulk_Supply_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Bulk_Supply_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Electric Vehical HT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-14\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"contracted_load\":100.00,\r\n  \"opening_balance\":180000,\r\n  \"previous_reading\":0,\r\n  \"current_reading\":1140.00,\r\n  \"closing_balance\":0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Electric_Vehical_HT.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Electric_Vehical_HT.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Electric Vehical HT EOM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"current_date\":\"2025-12-15\",\r\n  \"installation_date\":\"2025-12-14\",\r\n  \"pervious_contracted_load\":100,\r\n  \"max_contracted_load_month\":150,\r\n  \"pervious_electricity_charge\":9960.61,\r\n  \"pervious_demand_charges\":241.9584,\r\n  \"pervious_surcharge\":204.0512\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/calculate-tarrif/evaluate?decision_table_key=satnam/Electric_Vehical_HT_EOM.json",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "calculate-tarrif",
+            "evaluate"
+          ],
+          "query": [
+            {
+              "key": "decision_table_key",
+              "value": "satnam/Electric_Vehical_HT_EOM.json"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
